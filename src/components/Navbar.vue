@@ -10,6 +10,7 @@ const isDark = ref(false)
 const navItems = [
   { name: '首页', path: '/' },
   { name: '项目', path: '/projects' },
+  { name: '文章', path: '/articles' },
   { name: '关于', path: '/about' },
   { name: '联系', path: '/contact' },
 ]

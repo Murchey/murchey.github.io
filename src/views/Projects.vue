@@ -57,6 +57,18 @@ const projects = ref<Project[]>([
     forks: 0,
   },
   {
+    name: '定制化处理Excel的AI skill',
+    repo: 'excel-master',
+    owner: 'murchey',
+    description: '定制化处理Excel的AI skill',
+    tags: ['Markdown', 'Python'],
+    github: 'https://github.com/Murchey/excel-master',
+    demo: null,
+    language: 'Python',
+    stars: 0,
+    forks: 0,
+  },
+  {
     name: '仿原神抽卡姓名抽取器',
     repo: 'genshin-name-drawer',
     owner: 'murchey',

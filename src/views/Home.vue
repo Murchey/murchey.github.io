@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import AuroraBackground from '@/components/inspira/AuroraBackground.vue'
 import LetterPullup from '@/components/inspira/LetterPullup.vue'
-import CardSpotlight from '@/components/inspira/LetterPullup.vue'
 import BentoGrid from '@/components/inspira/BentoGrid.vue'
 import BentoGridItem from '@/components/inspira/BentoGridItem.vue'
 import NumberTicker from '@/components/inspira/NumberTicker.vue'
 import BorderBeam from '@/components/inspira/BorderBeam.vue'
+import NeonBorder from '@/components/inspira/NeonBorder.vue'
+import InteractiveHoverButton from '@/components/inspira/InteractiveHoverButton.vue'
 import { Motion } from 'motion-v'
 import { Code2, Palette, Zap, ArrowRight } from 'lucide-vue-next'
 
@@ -32,7 +33,7 @@ const features = [
 
 const stats = [
   { label: '年开发经验', value: 4 },
-  { label: '开源项目', value: 15 },
+  { label: '开源项目', value: 6 },
   { label: '年上学经验', value: 12 },
   { label: '技术文章', value: 0 },
 ]
@@ -56,11 +57,19 @@ const stats = [
         }"
         class="relative flex flex-col items-center justify-center gap-6 px-4"
       >
-        <div
-          class="rounded-full border border-foreground/10 bg-foreground/5 px-4 py-1.5 text-sm text-foreground/60 backdrop-blur-sm"
+        <NeonBorder
+          color1="#0496ff"
+          color2="#a855f7"
+          animation-type="half"
+          :duration="4"
+          class="rounded-full"
         >
-          欢迎来到我的个人空间
-        </div>
+          <div
+            class="rounded-full bg-foreground/5 px-4 py-1.5 text-sm text-foreground/60 backdrop-blur-sm"
+          >
+            欢迎来到我的个人空间
+          </div>
+        </NeonBorder>
 
         <LetterPullup
           words="Murchey's Blog"
@@ -74,12 +83,8 @@ const stats = [
         </p>
 
         <div class="mt-4 flex items-center gap-4">
-          <router-link
-            to="/projects"
-            class="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-all hover:scale-105 hover:shadow-lg"
-          >
-            查看项目
-            <ArrowRight class="h-4 w-4" />
+          <router-link to="/projects">
+            <InteractiveHoverButton text="查看项目" />
           </router-link>
           <router-link
             to="/about"
