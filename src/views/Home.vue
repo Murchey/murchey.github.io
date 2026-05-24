@@ -31,10 +31,10 @@ const features = [
 ]
 
 const stats = [
-  { label: '开源项目', value: 12 },
-  { label: 'GitHub Stars', value: 1200 },
-  { label: '技术文章', value: 50 },
-  { label: '贡献者', value: 30 },
+  { label: '年开发经验', value: 4 },
+  { label: '开源项目', value: 15 },
+  { label: '年上学经验', value: 12 },
+  { label: '技术文章', value: 0 },
 ]
 </script>
 
@@ -96,22 +96,31 @@ const stats = [
         <h2 class="text-3xl font-bold text-foreground md:text-4xl">数据概览</h2>
         <p class="mt-2 text-muted-foreground">用数字记录成长</p>
       </div>
-      <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
-        <div
-          v-for="stat in stats"
-          :key="stat.label"
-          class="flex flex-col items-center gap-2"
-        >
-          <div class="flex items-baseline gap-1">
-            <NumberTicker
-              :value="stat.value"
-              class="text-4xl font-bold text-foreground md:text-5xl"
-            />
-            <span class="text-2xl text-muted-foreground">+</span>
-          </div>
-          <p class="text-sm text-muted-foreground">{{ stat.label }}</p>
+      <Motion
+        as="div"
+        :initial="{ opacity: 0, y: 30 }"
+        :while-in-view="{ opacity: 1, y: 0 }"
+        :transition="{ duration: 0.5 }"
+        :viewport="{ once: true }"
+        class="grid grid-cols-2 gap-8 md:grid-cols-4"
+      >
+        <div class="text-center">
+          <NumberTicker :value="4" class="text-4xl font-bold text-foreground" />
+          <p class="mt-2 text-sm text-muted-foreground">年开发经验</p>
         </div>
-      </div>
+        <div class="text-center">
+          <NumberTicker :value="15" class="text-4xl font-bold text-foreground" />
+          <p class="mt-2 text-sm text-muted-foreground">开源项目</p>
+        </div>
+        <div class="text-center">
+          <NumberTicker :value="12" class="text-4xl font-bold text-foreground" />
+          <p class="mt-2 text-sm text-muted-foreground">年上学经验</p>
+        </div>
+        <div class="text-center">
+          <NumberTicker :value="0" class="text-4xl font-bold text-foreground" />
+          <p class="mt-2 text-sm text-muted-foreground">技术文章</p>
+        </div>
+      </Motion>
     </section>
 
     <section class="mx-auto max-w-6xl px-4 py-20">

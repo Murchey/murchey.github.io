@@ -15,35 +15,37 @@ import {
 } from 'lucide-vue-next'
 
 const skills = [
-  { name: 'Vue.js', icon: Code2, level: 95, category: '前端' },
-  { name: 'React', icon: Layers, level: 88, category: '前端' },
-  { name: 'TypeScript', icon: Terminal, level: 92, category: '语言' },
-  { name: 'Node.js', icon: Cpu, level: 85, category: '后端' },
-  { name: 'Tailwind CSS', icon: Palette, level: 96, category: '样式' },
+  { name: 'Vue.js', icon: Code2, level: 60, category: '前端' },
+  // { name: 'React', icon: Layers, level: 88, category: '前端' },
+  { name: 'TypeScript', icon: Terminal, level: 60, category: '语言' },
+  { name: 'Node.js', icon: Cpu, level: 60, category: '后端' },
+  // { name: 'Tailwind CSS', icon: Palette, level: 96, category: '样式' },
   { name: 'Git', icon: GitBranch, level: 90, category: '工具' },
-  { name: 'PostgreSQL', icon: Database, level: 80, category: '数据库' },
-  { name: 'Docker', icon: Cloud, level: 78, category: 'DevOps' },
-  { name: 'WebGL', icon: Globe, level: 72, category: '图形' },
+  // { name: 'PostgreSQL', icon: Database, level: 80, category: '数据库' },
+  // { name: 'Docker', icon: Cloud, level: 78, category: 'DevOps' },
+  { name: 'Java', icon: Terminal, level: 60, category: '语言' },
+  { name: 'Python', icon: Terminal, level: 70, category: '语言' },
+  { name: 'MySQL', icon: Database, level: 0, category: '数据库' },
 ]
 
 const experiences = [
   {
-    period: '2023 - 至今',
-    role: '高级前端工程师',
-    company: '科技公司',
-    description: '负责核心产品的前端架构设计和开发，带领团队完成多个重要项目。',
+    period: '2025 - 至今',
+    role: '某城市理工大学学生',
+    company: '某城市理工大学',
+    description: '学习高阶学科知识。',
   },
   {
-    period: '2021 - 2023',
-    role: '前端开发工程师',
-    company: '互联网公司',
-    description: '参与多个 Web 应用的开发，优化性能和用户体验。',
+    period: '2022 - 2023',
+    role: '某城市高级中学普通学生',
+    company: '某城市高级中学',
+    description: '负责试卷题目的答案编写和审核，确保题目符合试卷题目要求。',
   },
   {
-    period: '2019 - 2021',
-    role: '初级开发者',
-    company: '创业公司',
-    description: '从零开始学习前端开发，参与公司官网和内部工具的开发。',
+    period: '2019 - 2022',
+    role: '某城市初级中学学生',
+    company: '某城市初级中学',
+    description: '基础学科学习与自然语言学习。',
   },
 ]
 </script>
@@ -59,7 +61,7 @@ const experiences = [
     >
       <h1 class="text-4xl font-bold text-foreground md:text-5xl">关于我</h1>
       <p class="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-        热爱技术的全栈开发者，专注于构建高质量的 Web 应用和开源项目
+        热爱技术的全栈开发者，专注于学习构建 Web 应用和 AI 辅助项目
       </p>
     </Motion>
 
@@ -75,18 +77,17 @@ const experiences = [
           <h2 class="text-3xl font-bold text-foreground">个人简介</h2>
           <div class="space-y-4 text-muted-foreground">
             <p>
-              我是一名热爱技术的开发者，专注于前端开发和开源项目。
-              在过去的几年里，我积累了丰富的 Web 开发经验，
-              熟悉 Vue.js、React、TypeScript 等现代前端技术栈。
+              我是一名热爱技术的全栈开发者，专注于学习构建 Web 应用和 AI 辅助项目。
+              还在学习 Vue.js、React、TypeScript 等现代前端技术栈以及Java、Python 等后端技术栈。
             </p>
-            <p>
+            <!-- <p>
               我喜欢探索新技术，分享知识，并为开源社区做出贡献。
               在我的博客中，你可以找到我的项目、技术文章和创意想法。
             </p>
             <p>
               除了编码，我还热衷于 UI/UX 设计，相信好的设计能够
               让技术变得更加美好和易用。
-            </p>
+            </p> -->
           </div>
         </div>
         <div class="flex items-center justify-center">
@@ -94,7 +95,7 @@ const experiences = [
             class="relative h-64 w-64 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 md:h-80 md:w-80"
           >
             <div class="absolute inset-0 flex items-center justify-center">
-              <span class="text-8xl">👨‍💻</span>
+              <span class="text-8xl">😎</span>
             </div>
           </div>
         </div>
@@ -192,19 +193,19 @@ const experiences = [
         class="grid grid-cols-2 gap-8 md:grid-cols-4"
       >
         <div class="text-center">
-          <NumberTicker :value="5" class="text-4xl font-bold text-foreground" />
+          <NumberTicker :value="4" class="text-4xl font-bold text-foreground" />
           <p class="mt-2 text-sm text-muted-foreground">年开发经验</p>
         </div>
         <div class="text-center">
-          <NumberTicker :value="12" class="text-4xl font-bold text-foreground" />
+          <NumberTicker :value="15" class="text-4xl font-bold text-foreground" />
           <p class="mt-2 text-sm text-muted-foreground">开源项目</p>
         </div>
         <div class="text-center">
-          <NumberTicker :value="1200" class="text-4xl font-bold text-foreground" />
-          <p class="mt-2 text-sm text-muted-foreground">GitHub Stars</p>
+          <NumberTicker :value="12" class="text-4xl font-bold text-foreground" />
+          <p class="mt-2 text-sm text-muted-foreground">年上学经验</p>
         </div>
         <div class="text-center">
-          <NumberTicker :value="50" class="text-4xl font-bold text-foreground" />
+          <NumberTicker :value="0" class="text-4xl font-bold text-foreground" />
           <p class="mt-2 text-sm text-muted-foreground">技术文章</p>
         </div>
       </Motion>

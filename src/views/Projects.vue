@@ -1,77 +1,126 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import CardSpotlight from '@/components/inspira/CardSpotlight.vue'
 import BorderBeam from '@/components/inspira/BorderBeam.vue'
 import { Motion } from 'motion-v'
-import { ExternalLink, Github, Star, GitFork } from 'lucide-vue-next'
+import { ExternalLink, Github, Star, GitFork, Loader2 } from 'lucide-vue-next'
+import { fetchMultipleRepos, getLanguageColor, type GitHubRepo } from '@/lib/github'
 
-const projects = [
+interface Project {
+  name: string
+  repo: string
+  owner: string
+  description: string
+  tags: string[]
+  github: string
+  demo: string | null
+  language: string | null
+  stars: number
+  forks: number
+}
+
+const projects = ref<Project[]>([
   {
-    name: 'Vue Component Library',
-    description: '一个基于 Vue 3 的现代组件库，提供丰富的 UI 组件和工具函数，帮助开发者快速构建高质量的 Web 应用。',
-    tags: ['Vue 3', 'TypeScript', '组件库'],
-    github: 'https://github.com/murchey/vue-components',
-    demo: 'https://vue-components.murchey.dev',
-    stars: 320,
-    forks: 45,
-    language: 'TypeScript',
-    languageColor: '#3178c6',
+    name: '墨麒麟记账',
+    repo: 'inkqilin-ledger',
+    owner: 'murchey',
+    description: '一个基于 JetPack Components 的安卓记账APP，提供便捷快速的记账和统计功能。',
+    tags: ['Kotlin', 'Android', 'JetPack Components'],
+    github: 'https://github.com/murchey/inkqilin-ledger',
+    demo: null,
+    language: 'Kotlin',
+    stars: 0,
+    forks: 0,
   },
   {
-    name: 'Blog System',
-    description: '使用 Vue 3 和 Inspira UI 构建的个人博客系统，支持 Markdown 渲染、代码高亮和响应式设计。',
-    tags: ['Vue 3', 'Inspira UI', 'Tailwind CSS'],
-    github: 'https://github.com/murchey/blog',
-    demo: 'https://blog.murchey.dev',
-    stars: 180,
-    forks: 28,
+    name: '文途智行（Web端）',
+    repo: 'hpu-guider-agent',
+    owner: 'murchey',
+    description: '使用 Vue 3 和 ElementPlus 构建的导游智能体前端页面。',
+    tags: ['Vue 3', 'ElementPlus', 'TypeScript'],
+    github: 'https://github.com/Murchey/hpu-guider-agent',
+    demo: null,
     language: 'Vue',
-    languageColor: '#41b883',
+    stars: 0,
+    forks: 0,
   },
   {
-    name: 'Node.js API Framework',
-    description: '一个轻量级的 Node.js RESTful API 框架，内置中间件系统、路由管理和错误处理。',
-    tags: ['Node.js', 'Express', 'REST API'],
-    github: 'https://github.com/murchey/node-api',
+    name: '文途智行（移动端）',
+    repo: 'hpu-guider-agent-mobile',
+    owner: 'murchey',
+    description: '一个导游智能体移动端应用。',
+    tags: ['Vue 3'],
+    github: 'https://github.com/Murchey/hpu-guider-agent-mobile',
     demo: null,
-    stars: 256,
-    forks: 32,
-    language: 'JavaScript',
-    languageColor: '#f7df1e',
+    language: 'Vue',
+    stars: 0,
+    forks: 0,
   },
   {
-    name: 'CSS Animation Library',
-    description: '一个轻量级的 CSS 动画库，提供 50+ 预设动画效果，支持自定义配置和链式调用。',
-    tags: ['CSS', 'Animation', 'Library'],
-    github: 'https://github.com/murchey/css-animations',
-    demo: 'https://css-animations.murchey.dev',
-    stars: 412,
-    forks: 58,
-    language: 'CSS',
-    languageColor: '#563d7c',
-  },
-  {
-    name: 'React Dashboard',
-    description: '基于 React 和 Recharts 的数据可视化仪表板，支持多种图表类型和实时数据更新。',
-    tags: ['React', 'TypeScript', 'Recharts'],
-    github: 'https://github.com/murchey/react-dashboard',
-    demo: 'https://dashboard.murchey.dev',
-    stars: 198,
-    forks: 24,
-    language: 'TypeScript',
-    languageColor: '#3178c6',
-  },
-  {
-    name: 'CLI Tool',
-    description: '一个命令行工具，用于快速生成项目模板和脚手架，支持多种框架和语言。',
-    tags: ['CLI', 'Node.js', 'Tool'],
-    github: 'https://github.com/murchey/cli-tool',
+    name: '仿原神抽卡姓名抽取器',
+    repo: 'genshin-name-drawer',
+    owner: 'murchey',
+    description: '一个仿原神抽卡姓名抽取器，用于从姓名文档中随机提取姓名，符合课堂使用习惯。',
+    tags: ['C#', 'Windows Forms', 'Windows API'],
+    github: 'https://github.com/Murchey/genshin-name-drawer',
     demo: null,
-    stars: 89,
-    forks: 12,
-    language: 'Go',
-    languageColor: '#00add8',
+    language: 'C#',
+    stars: 0,
+    forks: 0,
   },
-]
+  {
+    name: '账单对比程序',
+    repo: 'Billing_Discrepancy_Comparison',
+    owner: 'murchey',
+    description: '一个账单对比程序，用于大量账单的差异报告生成。',
+    tags: ['Java', 'Python', 'Spring', 'Swing'],
+    github: 'https://github.com/Murchey/Billing_Discrepancy_Comparison',
+    demo: null,
+    language: 'Java',
+    stars: 0,
+    forks: 0,
+  },
+])
+
+const loading = ref(true)
+const error = ref<string | null>(null)
+
+async function loadGitHubData() {
+  loading.value = true
+  error.value = null
+
+  try {
+    const reposToFetch = projects.value.map((p) => ({
+      owner: p.owner,
+      repo: p.repo,
+    }))
+
+    const repoData = await fetchMultipleRepos(reposToFetch)
+
+    projects.value = projects.value.map((project) => {
+      const data = repoData.get(project.repo)
+      if (data) {
+        return {
+          ...project,
+          stars: data.stargazers_count,
+          forks: data.forks_count,
+          description: data.description || project.description,
+          language: data.language || project.language,
+        }
+      }
+      return project
+    })
+  } catch (e) {
+    error.value = '加载 GitHub 数据失败'
+    console.error('Failed to load GitHub data:', e)
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  loadGitHubData()
+})
 </script>
 
 <template>
@@ -87,6 +136,19 @@ const projects = [
       <p class="mt-4 text-lg text-muted-foreground">
         这里是我在 GitHub 上的开源项目集合
       </p>
+      <div v-if="loading" class="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+        <Loader2 class="h-4 w-4 animate-spin" />
+        正在加载 GitHub 数据...
+      </div>
+      <div v-if="error" class="mt-4 text-sm text-destructive">
+        {{ error }}
+        <button
+          class="ml-2 underline hover:text-destructive/80"
+          @click="loadGitHubData"
+        >
+          重试
+        </button>
+      </div>
     </Motion>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -108,18 +170,20 @@ const projects = [
               <div class="flex items-center gap-2">
                 <div
                   class="h-3 w-3 rounded-full"
-                  :style="{ backgroundColor: project.languageColor }"
+                  :style="{ backgroundColor: getLanguageColor(project.language) }"
                 />
                 <span class="text-xs text-muted-foreground">{{ project.language }}</span>
               </div>
               <div class="flex items-center gap-3">
                 <span class="flex items-center gap-1 text-xs text-muted-foreground">
                   <Star class="h-3.5 w-3.5" />
-                  {{ project.stars }}
+                  <span v-if="loading" class="inline-block h-3 w-8 animate-pulse rounded bg-muted" />
+                  <span v-else>{{ project.stars }}</span>
                 </span>
                 <span class="flex items-center gap-1 text-xs text-muted-foreground">
                   <GitFork class="h-3.5 w-3.5" />
-                  {{ project.forks }}
+                  <span v-if="loading" class="inline-block h-3 w-8 animate-pulse rounded bg-muted" />
+                  <span v-else>{{ project.forks }}</span>
                 </span>
               </div>
             </div>

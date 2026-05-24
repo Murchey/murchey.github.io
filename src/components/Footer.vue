@@ -5,9 +5,9 @@ const currentYear = new Date().getFullYear()
 
 const socials = [
   { name: 'GitHub', url: 'https://github.com/murchey', icon: Github },
-  { name: 'Twitter', url: 'https://twitter.com/murchey', icon: Twitter },
-  { name: 'LinkedIn', url: 'https://linkedin.com/in/murchey', icon: Linkedin },
-  { name: 'Email', url: 'mailto:contact@murchey.dev', icon: Mail },
+  // { name: 'Twitter', url: 'https://twitter.com/murchey', icon: Twitter },
+  // { name: 'LinkedIn', url: 'https://linkedin.com/in/murchey', icon: Linkedin },
+  { name: 'Email', url: "mailto:murchey@dingtalk.com", icon: Mail },
 ]
 </script>
 

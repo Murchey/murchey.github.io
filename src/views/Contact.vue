@@ -10,7 +10,6 @@ import {
   Linkedin,
   MapPin,
   Send,
-  MessageSquare,
   CheckCircle,
 } from 'lucide-vue-next'
 
@@ -24,10 +23,10 @@ const form = ref({
 const isSubmitted = ref(false)
 
 const contacts = [
-  { label: '邮箱', value: 'contact@murchey.dev', icon: Mail, href: 'mailto:contact@murchey.dev' },
+  { label: '邮箱', value: 'murchey@dingtalk.com', icon: Mail, href: null },
   { label: 'GitHub', value: 'github.com/murchey', icon: Github, href: 'https://github.com/murchey' },
-  { label: 'Twitter', value: '@murchey', icon: Twitter, href: 'https://twitter.com/murchey' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/murchey', icon: Linkedin, href: 'https://linkedin.com/in/murchey' },
+  // { label: 'Twitter', value: '@murchey', icon: Twitter, href: 'https://twitter.com/murchey' },
+  // { label: 'LinkedIn', value: 'linkedin.com/in/murchey', icon: Linkedin, href: 'https://linkedin.com/in/murchey' },
   { label: '位置', value: '中国', icon: MapPin, href: null },
 ]
 
@@ -90,17 +89,17 @@ function handleSubmit() {
           </CardSpotlight>
         </div>
 
-        <div class="mt-8">
+        <!-- <div class="mt-8">
           <h3 class="mb-4 text-lg font-semibold text-foreground">工作时间</h3>
           <div class="space-y-2 text-sm text-muted-foreground">
             <p>周一至周五：9:00 - 18:00</p>
             <p>周末：不定时在线</p>
             <p class="mt-4 text-xs">通常会在 24 小时内回复邮件</p>
           </div>
-        </div>
+        </div> -->
       </Motion>
 
-      <Motion
+      <!-- <Motion
         as="div"
         :initial="{ opacity: 0, x: 30 }"
         :animate="{ opacity: 1, x: 0 }"
@@ -180,7 +179,7 @@ function handleSubmit() {
 
           <BorderBeam :size="250" :duration="15000" :delay="0" color-from="#ffaa40" color-to="#9c40ff" />
         </div>
-      </Motion>
+      </Motion> -->
     </div>
   </div>
 </template>
