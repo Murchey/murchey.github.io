@@ -6,7 +6,8 @@ node_modules/
 dist/
 dist-ssr/
 *.local
-
+gsap-skills/
+ui-ux-pro-max-skill/
 # Environment variables
 .env
 .env.local

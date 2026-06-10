@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { cn } from '@/lib/utils'
-import { Motion } from 'motion-v'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { gsap } from 'gsap'
 
 interface LetterPullupProps {
   class?: string
@@ -10,40 +11,47 @@ interface LetterPullupProps {
 
 const props = defineProps<LetterPullupProps>()
 
+const container = ref<HTMLDivElement | null>(null)
 const letters = props.words.split('')
+let ctx: gsap.Context
 
-const pullupVariant = {
-  initial: { y: 100, opacity: 0 },
-  animate: {
-    y: 0,
-    opacity: 1,
-  },
-}
+onMounted(() => {
+  if (!container.value) return
+  ctx = gsap.context(() => {
+    gsap.from('.letter-pullup-char', {
+      y: 100,
+      autoAlpha: 0,
+      duration: 0.6,
+      ease: 'back.out(1.7)',
+      stagger: props.delay ?? 0.05,
+    })
+  }, container.value)
+})
+
+onUnmounted(() => {
+  ctx?.revert()
+})
 </script>
 
 <template>
-  <div class="flex justify-center">
-    <div
-      v-for="(letter, index) in letters"
-      :key="index"
+  <div ref="container" class="flex justify-center">
+    <h1
+      :class="
+        cn(
+          'font-display text-center text-4xl font-bold tracking-[-0.02em] text-black drop-shadow-sm md:text-7xl md:leading-20',
+          props.class,
+        )
+      "
     >
-      <Motion
-        as="h1"
-        :initial="pullupVariant.initial"
-        :animate="pullupVariant.animate"
-        :transition="{
-          delay: index * (props.delay ? props.delay : 0.05),
-        }"
-        :class="
-          cn(
-            'font-display text-center text-4xl font-bold tracking-[-0.02em] text-black drop-shadow-sm md:text-7xl md:leading-20',
-            props.class,
-          )
-        "
+      <span
+        v-for="(letter, index) in letters"
+        :key="index"
+        class="letter-pullup-char inline-block"
+        :style="{ visibility: 'hidden' }"
       >
         <span v-if="letter === ' '">&nbsp;</span>
         <span v-else>{{ letter }}</span>
-      </Motion>
-    </div>
+      </span>
+    </h1>
   </div>
 </template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getArticleById, type Article } from '@/lib/markdown'
-import { Motion } from 'motion-v'
+import { gsap } from 'gsap'
 import { Calendar, Clock, Tag, ArrowLeft, ExternalLink, Loader2 } from 'lucide-vue-next'
 
 const route = useRoute()
@@ -10,6 +10,8 @@ const router = useRouter()
 
 const article = ref<Article | null>(null)
 const loading = ref(true)
+const pageRef = ref<HTMLDivElement | null>(null)
+let ctx: gsap.Context
 
 const articleId = computed(() => route.params.id as string)
 
@@ -23,7 +25,17 @@ onMounted(async () => {
     console.error('Failed to load article:', error)
   } finally {
     loading.value = false
+    await nextTick()
+    if (!pageRef.value) return
+    ctx = gsap.context(() => {
+      gsap.set('.article-detail-content', { y: 20, opacity: 0 })
+      gsap.to('.article-detail-content', { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' })
+    }, pageRef.value)
   }
+})
+
+onUnmounted(() => {
+  ctx?.revert()
 })
 
 function goBack() {
@@ -32,18 +44,12 @@ function goBack() {
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl px-4 py-20">
+  <div ref="pageRef" class="mx-auto max-w-4xl px-4 py-20">
     <div v-if="loading" class="flex items-center justify-center py-20">
       <Loader2 class="h-8 w-8 animate-spin text-muted-foreground" />
     </div>
 
-    <Motion
-      v-else-if="article"
-      as="div"
-      :initial="{ opacity: 0, y: 20 }"
-      :animate="{ opacity: 1, y: 0 }"
-      :transition="{ duration: 0.5 }"
-    >
+    <div v-else-if="article" class="article-detail-content">
       <button
         class="mb-8 flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
         @click="goBack"
@@ -101,15 +107,9 @@ function goBack() {
           </div>
         </footer>
       </article>
-    </Motion>
+    </div>
 
-    <Motion
-      v-else
-      as="div"
-      :initial="{ opacity: 0 }"
-      :animate="{ opacity: 1 }"
-      class="py-20 text-center"
-    >
+    <div v-else class="article-detail-content py-20 text-center">
       <h2 class="text-2xl font-bold text-foreground">文章未找到</h2>
       <p class="mt-4 text-muted-foreground">抱歉，您访问的文章不存在</p>
       <button
@@ -119,7 +119,7 @@ function goBack() {
         <ArrowLeft class="h-4 w-4" />
         返回文章列表
       </button>
-    </Motion>
+    </div>
   </div>
 </template>
 

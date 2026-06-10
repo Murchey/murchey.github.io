@@ -4,9 +4,9 @@ import Footer from '@/components/Footer.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-background text-foreground">
+  <div class="flex min-h-screen flex-col bg-background text-foreground">
     <Navbar />
-    <main>
+    <main class="flex-1 pt-14">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />
@@ -20,7 +20,7 @@ import Footer from '@/components/Footer.vue'
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 .fade-enter-from,
 .fade-leave-to {

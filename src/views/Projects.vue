@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import CardSpotlight from '@/components/inspira/CardSpotlight.vue'
 import BorderBeam from '@/components/inspira/BorderBeam.vue'
-import { Motion } from 'motion-v'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ExternalLink, Github, Star, GitFork, Loader2 } from 'lucide-vue-next'
 import { fetchMultipleRepos, getLanguageColor, type GitHubRepo } from '@/lib/github'
 
@@ -96,6 +97,8 @@ const projects = ref<Project[]>([
 
 const loading = ref(true)
 const error = ref<string | null>(null)
+const pageRef = ref<HTMLDivElement | null>(null)
+let ctx: gsap.Context
 
 async function loadGitHubData() {
   loading.value = true
@@ -130,20 +133,35 @@ async function loadGitHubData() {
   }
 }
 
-onMounted(() => {
-  loadGitHubData()
+function initAnimations() {
+  if (!pageRef.value) return
+  ctx?.revert()
+  ctx = gsap.context(() => {
+    gsap.set('.projects-hero', { y: 20, opacity: 0 })
+    gsap.to('.projects-hero', { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' })
+
+    gsap.set('.project-card', { y: 30, opacity: 0 })
+    ScrollTrigger.batch('.project-card', {
+      onEnter: (batch) => gsap.to(batch, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out', stagger: 0.1 }),
+      start: 'top 85%', once: true,
+    })
+  }, pageRef.value)
+}
+
+onMounted(async () => {
+  await loadGitHubData()
+  await nextTick()
+  initAnimations()
+})
+
+onUnmounted(() => {
+  ctx?.revert()
 })
 </script>
 
 <template>
-  <div class="mx-auto max-w-6xl px-4 py-20">
-    <Motion
-      as="div"
-      :initial="{ opacity: 0, y: 20 }"
-      :animate="{ opacity: 1, y: 0 }"
-      :transition="{ duration: 0.5 }"
-      class="mb-12 text-center"
-    >
+  <div ref="pageRef" class="mx-auto max-w-5xl px-4 py-20">
+    <div class="projects-hero mb-12 text-center">
       <h1 class="text-4xl font-bold text-foreground md:text-5xl">我的项目</h1>
       <p class="mt-4 text-lg text-muted-foreground">
         这里是我在 GitHub 上的开源项目集合
@@ -161,16 +179,13 @@ onMounted(() => {
           重试
         </button>
       </div>
-    </Motion>
+    </div>
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <Motion
+    <div class="projects-grid grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div
         v-for="(project, index) in projects"
         :key="project.name"
-        as="div"
-        :initial="{ opacity: 0, y: 30 }"
-        :animate="{ opacity: 1, y: 0 }"
-        :transition="{ delay: index * 0.1, duration: 0.5 }"
+        class="project-card"
       >
         <CardSpotlight
           class="h-full border-border/40 p-6"
@@ -243,7 +258,7 @@ onMounted(() => {
 
           <BorderBeam :size="200" :duration="15000" :delay="index * 2000" />
         </CardSpotlight>
-      </Motion>
+      </div>
     </div>
   </div>
 </template>
