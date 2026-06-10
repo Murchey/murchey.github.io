@@ -93,6 +93,18 @@ const projects = ref<Project[]>([
     stars: 0,
     forks: 0,
   },
+  {
+    name: 'Doc-Form-Master',
+    repo: 'doc-form-master',
+    owner: 'murchey',
+    description: '一个论文格式修改规范工具包，帮你规范实验报告的格式。',
+    tags: ['Python', 'Skill', 'Agent'],
+    github: 'https://github.com/Murchey/doc-form-master',
+    demo: null,
+    language: 'Python',
+    stars: 0,
+    forks: 0,
+  },
 ])
 
 const loading = ref(true)
