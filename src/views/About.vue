@@ -17,7 +17,7 @@ const skills = [
 ]
 
 const experiences = [
-  { period: '2025 - 至今', role: '某省理工大学学生', company: '某城市理工大学', description: '学习高阶学科知识。' },
+  { period: '2025 - 至今 ', role: '某省理工大学学生', company: '某城市理工大学', description: '学习高阶学科知识。' },
   { period: '2022 - 2025', role: '某城市高级中学普通学生', company: '某城市高级中学', description: '负责试卷题目的答案编写和审核，确保题目符合试卷题目要求。' },
   { period: '2019 - 2022', role: '某城市初级中学学生', company: '某城市初级中学', description: '基础学科学习与自然语言学习。' },
 ]
