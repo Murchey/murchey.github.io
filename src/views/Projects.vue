@@ -11,6 +11,7 @@ interface Project {
   name: string
   repo: string
   owner: string
+  collaboration?: boolean
   description: string
   tags: string[]
   github: string
@@ -21,6 +22,68 @@ interface Project {
 }
 
 const projects = ref<Project[]>([
+  {
+    name: 'AiChat',
+    repo: 'AiChatApp',
+    owner: 'Murchey',
+    description: '微信聊天风格的 AI 角色扮演 Android 应用，支持沉浸式角色聊天、群聊和角色包导入导出。',
+    tags: ['Flutter', 'Dart', 'Android', 'AI'],
+    github: 'https://github.com/Murchey/AiChatApp',
+    demo: null,
+    language: 'Dart',
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: 'Weasel Skin Studio',
+    repo: 'weasel-skin-studio',
+    owner: 'Murchey',
+    description: '小狼毫输入法的可视化皮肤配置工具，支持实时预览、配色与布局调整，以及 YAML 配置导入导出。',
+    tags: ['Tauri 2', 'React 19', 'JavaScript', 'Windows'],
+    github: 'https://github.com/Murchey/weasel-skin-studio',
+    demo: null,
+    language: 'JavaScript',
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: 'AiChat 角色卡社区',
+    repo: 'AiChatCharacterCommunity',
+    owner: 'Murchey',
+    description: 'AiChat 配套的角色卡仓库，提供角色包模板、制作规范和导入说明。',
+    tags: ['Python', 'AI', '角色卡', 'AiChat'],
+    github: 'https://github.com/Murchey/AiChatCharacterCommunity',
+    demo: null,
+    language: 'Python',
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: 'Questra',
+    repo: 'Questra',
+    owner: 'Dark2932',
+    collaboration: true,
+    description: '轻量、可自托管的问卷与答题系统，支持题库管理、自动判分考试和答卷导出。',
+    tags: ['Node.js', 'JavaScript', 'SQLite'],
+    github: 'https://github.com/Dark2932/Questra',
+    demo: null,
+    language: 'JavaScript',
+    stars: 0,
+    forks: 0,
+  },
+  {
+    name: 'Vellum',
+    repo: 'Vellum',
+    owner: 'Niriko-mu',
+    collaboration: true,
+    description: '以本地阅读为核心的电子书应用，支持 EPUB、MOBI、TXT，以及阅读笔记和 Markdown 写作。',
+    tags: ['Flutter', 'Dart', '电子书', '本地阅读'],
+    github: 'https://github.com/Niriko-mu/Vellum',
+    demo: null,
+    language: 'Dart',
+    stars: 0,
+    forks: 0,
+  },
   {
     name: '墨麒麟记账',
     repo: 'inkqilin-ledger',
@@ -176,7 +239,7 @@ onUnmounted(() => {
     <div class="projects-hero mb-12 text-center">
       <h1 class="text-4xl font-bold text-foreground md:text-5xl">我的项目</h1>
       <p class="mt-4 text-lg text-muted-foreground">
-        这里是我在 GitHub 上的开源项目集合
+        这里是我在 GitHub 上的个人开源项目与合作项目
       </p>
       <div v-if="loading" class="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground">
         <Loader2 class="h-4 w-4 animate-spin" />
@@ -196,7 +259,7 @@ onUnmounted(() => {
     <div class="projects-grid grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       <div
         v-for="(project, index) in projects"
-        :key="project.name"
+        :key="project.github"
         class="project-card"
       >
         <CardSpotlight
@@ -227,9 +290,20 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <h3 class="mb-2 text-lg font-semibold text-foreground">
-              {{ project.name }}
-            </h3>
+            <div class="mb-2 flex flex-wrap items-center gap-2">
+              <h3 class="text-lg font-semibold text-foreground">
+                {{ project.name }}
+              </h3>
+              <span
+                v-if="project.collaboration"
+                class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary"
+              >
+                合作项目
+              </span>
+            </div>
+            <p v-if="project.collaboration" class="mb-3 text-xs text-muted-foreground">
+              {{ project.owner }} / {{ project.repo }}
+            </p>
 
             <p class="mb-4 flex-1 text-sm text-muted-foreground">
               {{ project.description }}
