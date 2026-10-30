@@ -2,6 +2,8 @@
 import { Github, Mail } from 'lucide-vue-next'
 
 const currentYear = new Date().getFullYear()
+/** 备案号由构建时从本地 beian.json 注入，未配置时为空字符串。 */
+const icpBeian = __ICP_BEIAN__
 
 const links = [
   { name: '项目', path: '/projects' },
@@ -58,6 +60,16 @@ const socialLinks = [
       <div class="mt-8 border-t border-border/30 pt-6 text-center">
         <p class="text-xs text-muted-foreground">
           &copy; {{ currentYear }} Murchey. All rights reserved.
+        </p>
+        <p v-if="icpBeian" class="mt-2 text-xs text-muted-foreground">
+          <a
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="transition-colors hover:text-foreground"
+          >
+            {{ icpBeian }}
+          </a>
         </p>
       </div>
     </div>

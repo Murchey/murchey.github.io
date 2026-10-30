@@ -8,6 +8,9 @@ dist-ssr/
 *.local
 gsap-skills/
 ui-ux-pro-max-skill/
+# 备案号（只保存在本机/服务器，不进仓库）
+beian.json
+
 # Environment variables
 .env
 .env.local
