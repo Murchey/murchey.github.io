@@ -61,8 +61,9 @@ const socialLinks = [
         <p class="text-xs text-muted-foreground">
           &copy; {{ currentYear }} Murchey. All rights reserved.
         </p>
-        <p v-if="icpBeian" class="mt-2 text-xs text-muted-foreground">
+        <div class="mt-2 flex flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground">
           <a
+            v-if="icpBeian"
             href="https://beian.miit.gov.cn/"
             target="_blank"
             rel="noopener noreferrer"
@@ -70,7 +71,16 @@ const socialLinks = [
           >
             {{ icpBeian }}
           </a>
-        </p>
+          <a
+            href="https://beian.mps.gov.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="公安网备案"
+            class="inline-flex items-center transition-opacity hover:opacity-80"
+          >
+            <img src="/beian-gongan.png" alt="公安网备案" class="h-5 w-auto" />
+          </a>
+        </div>
       </div>
     </div>
   </footer>
