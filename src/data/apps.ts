@@ -78,6 +78,61 @@ export function resolvePackageUrl(file: string): string {
 
 export const apps: AppItem[] = [
   {
+    id: 'warpweft-scheduler',
+    name: 'WarpWeft Scheduler',
+    icon: '🗓️',
+    tagline: '单机与局域网小规模排课系统',
+    description:
+      '单机 / 局域网小规模排课系统。Electron + React 商务界面、本地 JSON 数据层、独立 Java 21 求解器；可选 Linux 服务端供多人共享。数据留在本机，工作区是可备份的单文件 JSON / ZIP；规则用中文句子式构建器表达，支持影响预览与「模拟放宽」试算。',
+    version: 'v0.1.0',
+    updatedAt: '2026-11-02',
+    size: '约 0.9–95 MB',
+    platforms: ['Windows', 'Linux'],
+    features: [
+      '数据留在本机：不依赖云端，工作区可备份为单文件 JSON / ZIP',
+      '规则可解释：中文句子式规则构建器，支持影响预览与「模拟放宽」试算',
+      '求解可追溯：固定时间硬保护、锁定课程、局部重排、候选与正式版分离',
+      '排课准备：Excel 导入、教师不可用时间、教学计划、连堂与单双周配对',
+      '课表查看与调代课：周课表网格、拖动交换、调课对调代课、Excel/CSV 导出',
+      '两种形态：Windows 桌面单机，或 Linux 服务端 + 桌面客户端',
+      '深色/浅色主题与中英双语界面',
+    ],
+    tags: ['Electron', 'React', 'Java 21', 'GPLv3'],
+    links: [
+      {
+        label: 'GitHub Releases',
+        url: 'https://github.com/Murchey/WarpWeft-Scheduler/releases',
+        type: 'github',
+      },
+      {
+        label: 'Gitee Releases',
+        url: 'https://gitee.com/Murchey/WarpWeft-Scheduler/releases/',
+        type: 'gitee',
+      },
+    ],
+    packages: [
+      {
+        platform: 'Windows',
+        file: 'WarpWeft/WarpWeft Scheduler Setup 0.1.0.exe',
+        version: 'v0.1.0',
+        size: '约 95 MB',
+      },
+      {
+        platform: 'Linux 服务端',
+        file: 'WarpWeft/warpweft-linux-server-0.1.0.tar.gz',
+        version: 'v0.1.0',
+        size: '约 3.2 MB',
+      },
+      {
+        platform: 'Linux Web 版',
+        file: 'WarpWeft/warpweft-linux-webapp-0.1.0.tar.gz',
+        version: 'v0.1.0',
+        size: '约 0.9 MB',
+      },
+    ],
+    repo: 'https://github.com/Murchey/WarpWeft-Scheduler',
+  },
+  {
     id: 'aichat',
     name: 'AiChat',
     icon: '💬',
