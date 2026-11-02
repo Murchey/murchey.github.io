@@ -5,19 +5,19 @@
 
 /** 单条下载链接 */
 export interface DownloadLink {
-  /** 来源名称，如「GitHub Releases」「蓝奏云」 */
+  /** 来源名称，如「GitHub Releases」「Gitee Releases」 */
   label: string
   /** 下载地址 */
   url: string
   /** 备注信息，如提取码、镜像说明等，可选 */
   hint?: string
   /** 来源类型，决定按钮图标 */
-  type?: 'github' | 'cloud' | 'official' | 'mirror'
+  type?: 'github' | 'gitee' | 'cloud' | 'official' | 'mirror'
 }
 
 /** 服务器上的应用安装包（直链下载） */
 export interface AppPackage {
-  /** 平台，如 Android、Windows */
+  /** 平台，如 Android、Android · arm64-v8a */
   platform: string
   /** 安装包文件名或相对路径（相对于 downloadServer.baseUrl），也可以写完整 URL */
   file: string
@@ -41,10 +41,10 @@ export interface AppItem {
   tagline: string
   /** 详细介绍 */
   description: string
-  /** 当前版本号 */
-  version: string
-  /** 最近更新日期 */
-  updatedAt: string
+  /** 当前版本号，未知时可省略 */
+  version?: string
+  /** 最近更新日期，未知时可省略 */
+  updatedAt?: string
   /** 安装包大小，可选 */
   size?: string
   /** 支持的平台 */
@@ -63,12 +63,11 @@ export interface AppItem {
 
 /**
  * 安装包托管服务器配置。
- * baseUrl 填你存放安装包的服务器地址（末尾不带 /），
- * AppPackage.file 写相对路径即可自动拼接成完整地址；
- * file 写完整 URL（http/https 开头）时不受 baseUrl 影响。
+ * 本地直链的安装包放在云服务器 /home/ubuntu/blog-app-installers/ 下，
+ * 由 Nginx 的 ^~ /installers/ location 直接对外提供。
  */
 export const downloadServer = {
-  baseUrl: 'https://dl.murchey.example.com/apps',
+  baseUrl: 'https://murchey.top/installers',
 }
 
 /** 拼接安装包下载地址 */
@@ -82,17 +81,20 @@ export const apps: AppItem[] = [
     id: 'aichat',
     name: 'AiChat',
     icon: '💬',
-    tagline: '微信聊天风格的 AI 角色扮演应用',
+    tagline: '微信聊天风格的角色扮演 AI 应用',
     description:
-      '以熟悉的微信聊天界面承载沉浸式 AI 角色扮演体验，支持一对一私聊与多人群聊，可导入导出角色包，轻松备份和分享你喜爱的角色。',
-    version: 'v1.2.0',
-    updatedAt: '2025-10-20',
-    size: '约 32 MB',
+      '一款角色扮演类微信聊天风格的 Flutter Android 应用：内置多个角色，可与角色进行一对一沉浸式聊天，支持发送图片、合并转发、角色包导入导出与自动更新。纯 Cupertino（iOS 风格）UI，仅适配 Android。所有数据均可自行导入导出，用户拥有完全的数据控制权。',
+    version: 'v1.7.4',
+    updatedAt: '2026-11-02',
+    size: '约 26–28 MB',
     platforms: ['Android'],
     features: [
-      '沉浸式角色聊天，还原微信对话体验',
-      '支持群聊，多个角色同台互动',
-      '角色包导入导出，一键分享与备份',
+      '沉浸式角色聊天，内置人设与说话风格，支持自定义人设与用户关系',
+      '语C模式：短信与括号动作流可切换，支持剧情推进、流式回复与候选行动',
+      '多角色群聊：@ 角色必发言、引用回复、群头像与群简介',
+      '角色包导入导出与创意工坊，可从 GitHub/Gitee 或对象储存下载角色、游戏与表情包',
+      '持久化记忆与跨场景记忆池，聊天与朋友圈互动保持记忆连贯',
+      '朋友圈、Markdown 渲染、聊天气泡样式与自定义聊天背景',
     ],
     tags: ['Flutter', 'AI', '角色扮演'],
     links: [
@@ -102,123 +104,203 @@ export const apps: AppItem[] = [
         type: 'github',
       },
       {
-        label: '蓝奏云',
-        url: 'https://wws.lanzoux.com/',
-        hint: '提取码：abcd',
-        type: 'cloud',
+        label: 'Gitee Releases',
+        url: 'https://gitee.com/Murchey/AiChatApp/releases',
+        type: 'gitee',
       },
     ],
     packages: [
       {
-        platform: 'Android',
-        file: 'aichat/aichat-v1.2.0.apk',
-        version: 'v1.2.0',
-        size: '约 32 MB',
-        sha256: '0000000000000000000000000000000000000000000000000000000000000000',
+        platform: 'Android · arm64-v8a',
+        file: 'AiChat/AiChat-V1.7.4-arm64-v8a.apk',
+        version: 'v1.7.4',
+        size: '约 27 MB',
+      },
+      {
+        platform: 'Android · armeabi-v7a',
+        file: 'AiChat/AiChat-V1.7.4-armeabi-v7a.apk',
+        version: 'v1.7.4',
+        size: '约 26 MB',
+      },
+      {
+        platform: 'Android · x86_64',
+        file: 'AiChat/AiChat-V1.7.4-x86_64.apk',
+        version: 'v1.7.4',
+        size: '约 28 MB',
       },
     ],
     repo: 'https://github.com/Murchey/AiChatApp',
   },
   {
-    id: 'weasel-skin-studio',
-    name: 'Weasel Skin Studio',
-    icon: '🎨',
-    tagline: '小狼毫输入法可视化皮肤配置工具',
-    description:
-      '为小狼毫（Rime）输入法打造的皮肤可视化编辑器，实时预览配色与布局效果，支持 YAML 配置的导入导出，让换肤不再需要手写配置文件。',
-    version: 'v0.9.1',
-    updatedAt: '2025-10-12',
-    size: '约 18 MB',
-    platforms: ['Windows'],
-    features: [
-      '实时预览，所见即所得的皮肤编辑',
-      '配色与布局自由调整',
-      'YAML 配置导入导出，兼容原生方案',
-    ],
-    tags: ['Tauri 2', 'React 19', 'Windows'],
-    links: [
-      {
-        label: 'GitHub Releases',
-        url: 'https://github.com/Murchey/weasel-skin-studio/releases',
-        type: 'github',
-      },
-    ],
-    packages: [
-      {
-        platform: 'Windows',
-        file: 'weasel-skin-studio/weasel-skin-studio-setup-0.9.1.exe',
-        version: 'v0.9.1',
-        size: '约 18 MB',
-      },
-    ],
-    repo: 'https://github.com/Murchey/weasel-skin-studio',
-  },
-  {
     id: 'inkqilin-ledger',
-    name: '墨麒麟记账',
-    icon: '📖',
-    tagline: '便捷快速的安卓记账应用',
+    name: 'InkQilin Ledger',
+    icon: '💰',
+    tagline: '记账与人情往来的 Android 记账本',
     description:
-      '基于 Jetpack Components 构建的轻量记账应用，专注快速记账与清晰统计，帮你轻松掌握每一笔收支。',
-    version: 'v1.0.3',
-    updatedAt: '2025-09-28',
-    size: '约 12 MB',
+      '一款基于 Jetpack Compose 与 Material 3 的个人财务 Android 应用，支持深浅色主题、多币种管理、账单记录、分类统计、Excel 导入导出，并内置人情往来的礼金账本。提供纯本地的基础模式与接入 AI 分析的智能模式。',
+    version: 'v1.6.8',
+    updatedAt: '2026-11-02',
+    size: '约 31 MB',
     platforms: ['Android'],
     features: [
-      '三步完成记账，操作简单快捷',
-      '收支统计图表，消费趋势一目了然',
-      '本地存储，数据安全可控',
+      '收支记录：金额键盘支持四则运算与括号，实时预览',
+      '多币种管理与月度收支总览，7 日支出趋势图',
+      '周/月/年/自定义区间统计，支持按分类下钻与同比对比',
+      '资产总览：房产、股票、基金、存款等 8 类资产分类管理',
+      '人情账本：婚丧嫁娶、收送礼金、联系人与标签统计',
+      'AI 财务分析、账单图片 OCR 批量识别、支付通知自动记账',
+      'Excel 导入导出、本地备份与腾讯云 COS 云备份，支持 AES-256-GCM 加密',
     ],
-    tags: ['Kotlin', 'Android', 'Jetpack'],
+    tags: ['Kotlin', 'Jetpack Compose', 'Material 3'],
     links: [
       {
-        label: 'GitHub Releases',
-        url: 'https://github.com/murchey/inkqilin-ledger/releases',
+        label: 'GitHub 仓库',
+        url: 'https://github.com/Murchey/inkqilin-ledger',
         type: 'github',
+      },
+      {
+        label: 'Gitee Releases',
+        url: 'https://gitee.com/Murchey/inkqinlin-ledger/releases',
+        type: 'gitee',
       },
     ],
     packages: [
       {
         platform: 'Android',
-        file: 'inkqilin-ledger/inkqilin-ledger-v1.0.3.apk',
-        version: 'v1.0.3',
-        size: '约 12 MB',
+        file: 'InkQilin-ledger/InkQilin-ledgerV1.6.8.apk',
+        version: 'v1.6.8',
+        size: '约 31 MB',
       },
     ],
-    repo: 'https://github.com/murchey/inkqilin-ledger',
+    repo: 'https://github.com/Murchey/inkqilin-ledger',
   },
   {
-    id: 'genshin-name-drawer',
-    name: '仿原神抽卡姓名抽取器',
-    icon: '🌟',
-    tagline: '课堂随机点名小工具',
+    id: 'qingluan-attendance',
+    name: '青鸾考勤',
+    icon: '📅',
+    tagline: '离线优先的考勤登记与请假管理客户端',
     description:
-      '仿原神抽卡动画的随机姓名抽取工具，从姓名文档中随机抽取，契合课堂使用习惯，让点名充满仪式感。',
-    version: 'v1.1.0',
-    updatedAt: '2025-08-15',
-    size: '约 8 MB',
-    platforms: ['Windows'],
+      'Android 优先的 Flutter / Cupertino 考勤客户端。支持离线登记、请假管理、考勤分统计与双通道通知；写通同步在保存后自动上传，也可随时手动同步。云端文件同步适配器仍在后续里程碑。',
+    version: 'v1.0.3',
+    updatedAt: '2026-11-02',
+    size: '约 25 MB',
+    platforms: ['Android'],
     features: [
-      '还原原神抽卡动画与音效',
-      '支持从文档批量导入姓名',
-      '抽取记录可查，公平公正',
+      '首页 / 记录 / 同步 / 设置四页，支持点击与拖动胶囊导航',
+      '单人与批量登记、补录历史、签到签退时间与操作历史',
+      '请假记录：按人登记区间与类型，已确认请假当天自动拦截考勤登记',
+      '考勤分统计：按区间扣分规则计算，可查看每位成员的扣分明细',
+      'Excel 与 CSV 名单导入、Excel 导出，支持字段选择与筛选范围',
+      '写通同步与待上传队列，支持腾讯云 COS 等对象存储',
+      '管理员通知发布、二维码配置与应用内更新',
     ],
-    tags: ['C#', 'Windows Forms'],
+    tags: ['Flutter', '考勤', '云同步'],
     links: [
       {
+        label: 'Gitee Releases',
+        url: 'https://gitee.com/Murchey/qingluan-attendance/releases',
+        type: 'gitee',
+      },
+      {
         label: 'GitHub Releases',
-        url: 'https://github.com/Murchey/genshin-name-drawer/releases',
+        url: 'https://github.com/Murchey/Qingluan-attendance/releases',
         type: 'github',
       },
     ],
     packages: [
       {
-        platform: 'Windows',
-        file: 'https://dl.murchey.example.com/apps/genshin-name-drawer/genshin-name-drawer-v1.1.0.zip',
-        version: 'v1.1.0',
-        size: '约 8 MB',
+        platform: 'Android · arm64-v8a',
+        file: 'Qingluan-attendance/Qingluan-attendanceV1.0.3-arm64-v8a.apk',
+        version: 'v1.0.3',
+        size: '约 25 MB',
       },
     ],
-    repo: 'https://github.com/Murchey/genshin-name-drawer',
+    repo: 'https://github.com/Murchey/Qingluan-attendance',
+  },
+  {
+    id: 'xime-gboardlike',
+    name: 'XimeGboard',
+    icon: '⌨️',
+    tagline: '五笔与拼音输入法的 Gboard 风格个性化分支',
+    description:
+      '基于 Rime 引擎的 Android 输入法，同时支持五笔与拼音。这是 Xime 的个人分支，围绕 Gboard 与 fcitx5-android 的使用习惯重做了输入体验：更宽敞安静的候选栏、Gboard 风格配色主题、字体个性化与剪贴板保留策略。',
+    version: '1.0.7',
+    updatedAt: '2026-11-02',
+    size: '约 47–50 MB',
+    platforms: ['Android'],
+    features: [
+      '五笔与拼音输入，支持全键盘、T9 拼音、数字与符号面板',
+      'Gboard 风格候选栏：更宽单元格、竖分隔、下拉展开更多候选',
+      '精选现代主题：微信、QQ、Telegram、GitHub、ChatGPT、Gboard 等，支持明暗双色与 JSON 导入导出',
+      '字体选择器：系统默认 / 内置字体 / 导入字体，全局生效',
+      '剪贴板保留时长可从 1 小时到 90 天，历史条数可自定义',
+      '公开签名密钥与构建脚本，可自行构建签名 APK',
+    ],
+    tags: ['Rime', '五笔', '拼音', 'GPLv3'],
+    links: [
+      {
+        label: 'Gitee Releases',
+        url: 'https://gitee.com/Murchey/Xime-Gboardlike/releases',
+        type: 'gitee',
+      },
+      {
+        label: 'GitHub Releases',
+        url: 'https://github.com/Murchey/Xime-Gboardlike/releases',
+        type: 'github',
+      },
+    ],
+    packages: [
+      {
+        platform: 'Android · arm64-v8a',
+        file: 'XimeGboard/XimeGboard-1.0.7-arm64-v8a.apk',
+        version: '1.0.7',
+        size: '约 48 MB',
+      },
+      {
+        platform: 'Android · armeabi-v7a',
+        file: 'XimeGboard/XimeGboard-1.0.7-armeabi-v7a.apk',
+        version: '1.0.7',
+        size: '约 47 MB',
+      },
+      {
+        platform: 'Android · x86_64',
+        file: 'XimeGboard/XimeGboard-1.0.7-x86_64.apk',
+        version: '1.0.7',
+        size: '约 50 MB',
+      },
+    ],
+    repo: 'https://github.com/Murchey/Xime-Gboardlike',
+  },
+  {
+    id: 'vellum',
+    name: 'Vellum',
+    icon: '📚',
+    tagline: '以阅读为核心的本地电子书应用',
+    description:
+      '一个安静的「数字书房」：以阅读为核心的本地电子书应用，Cupertino-first，数据只存在于本机。支持 EPUB / MOBI / TXT 导入、上下滚动与左右翻页、目录全文搜索、划线笔记与本地 Markdown 写作。',
+    platforms: ['Android'],
+    features: [
+      '书库：EPUB / MOBI / TXT 导入，三列网格书架，自定义文件夹与自定义封面',
+      '阅读：上下滚动 / 左右翻页，翻页动画、进度条、书签与划线笔记',
+      '全文搜索：按章节分组，关键词高亮与上下文，逐条跳转并在正文高亮',
+      '排版：字号、行距、字重、亮度、护眼、背景色与自定义 TTF 字体',
+      '写作：本地文稿、输入自动保存、Markdown 本地预览与小说模式',
+      '笔记导入导出、数据备份（可选 AES-256-GCM 加密）与对象存储云备份',
+      '阅读统计、继续阅读小组件与应用内更新',
+    ],
+    tags: ['Flutter', '电子书', '本地优先'],
+    links: [
+      {
+        label: 'GitHub Releases',
+        url: 'https://github.com/Niriko-mu/Vellum/releases',
+        type: 'github',
+      },
+      {
+        label: 'Gitee Releases',
+        url: 'https://gitee.com/Murchey/vellum/releases',
+        type: 'gitee',
+      },
+    ],
+    repo: 'https://github.com/Niriko-mu/Vellum',
   },
 ]

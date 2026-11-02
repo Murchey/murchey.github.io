@@ -26,6 +26,8 @@ function linkIcon(link: DownloadLink) {
   switch (link.type) {
     case 'github':
       return Github
+    case 'gitee':
+      return Globe
     case 'cloud':
       return Cloud
     case 'mirror':
@@ -122,6 +124,7 @@ onUnmounted(() => {
                   <div class="flex flex-wrap items-center gap-2">
                     <h2 class="text-xl font-semibold text-foreground">{{ app.name }}</h2>
                     <span
+                      v-if="app.version"
                       class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary"
                     >
                       {{ app.version }}
@@ -171,7 +174,7 @@ onUnmounted(() => {
             >
               <h3 class="mb-1 text-sm font-semibold text-foreground">下载地址</h3>
               <p class="mb-4 flex items-center gap-3 text-xs text-muted-foreground">
-                <span class="flex items-center gap-1">
+                <span v-if="app.updatedAt" class="flex items-center gap-1">
                   <Calendar class="h-3.5 w-3.5" />
                   更新于 {{ app.updatedAt }}
                 </span>
