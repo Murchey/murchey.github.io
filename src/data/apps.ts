@@ -183,7 +183,7 @@ export const apps: AppItem[] = [
       'Android 优先的 Flutter / Cupertino 考勤客户端。支持离线登记、请假管理、考勤分统计与双通道通知；写通同步在保存后自动上传，也可随时手动同步。云端文件同步适配器仍在后续里程碑。',
     version: 'v1.0.3',
     updatedAt: '2026-11-02',
-    size: '约 25 MB',
+    size: '约 21–27 MB',
     platforms: ['Android'],
     features: [
       '首页 / 记录 / 同步 / 设置四页，支持点击与拖动胶囊导航',
@@ -213,6 +213,18 @@ export const apps: AppItem[] = [
         file: 'Qingluan-attendance/Qingluan-attendanceV1.0.3-arm64-v8a.apk',
         version: 'v1.0.3',
         size: '约 25 MB',
+      },
+      {
+        platform: 'Android · armeabi-v7a',
+        file: 'Qingluan-attendance/Qingluan-attendanceV1.0.3-armeabi-v7a.apk',
+        version: 'v1.0.3',
+        size: '约 21 MB',
+      },
+      {
+        platform: 'Android · x86_64',
+        file: 'Qingluan-attendance/Qingluan-attendanceV1.0.3-x86_64.apk',
+        version: 'v1.0.3',
+        size: '约 27 MB',
       },
     ],
     repo: 'https://github.com/Murchey/Qingluan-attendance',
@@ -278,6 +290,9 @@ export const apps: AppItem[] = [
     tagline: '以阅读为核心的本地电子书应用',
     description:
       '一个安静的「数字书房」：以阅读为核心的本地电子书应用，Cupertino-first，数据只存在于本机。支持 EPUB / MOBI / TXT 导入、上下滚动与左右翻页、目录全文搜索、划线笔记与本地 Markdown 写作。',
+    version: 'v1.0.15',
+    updatedAt: '2026-11-02',
+    size: '约 21–24 MB',
     platforms: ['Android'],
     features: [
       '书库：EPUB / MOBI / TXT 导入，三列网格书架，自定义文件夹与自定义封面',
@@ -299,6 +314,26 @@ export const apps: AppItem[] = [
         label: 'Gitee Releases',
         url: 'https://gitee.com/Murchey/vellum/releases',
         type: 'gitee',
+      },
+    ],
+    packages: [
+      {
+        platform: 'Android · arm64-v8a',
+        file: 'Vellum/Vellum-V1.0.15-arm64-v8a.apk',
+        version: 'v1.0.15',
+        size: '约 23 MB',
+      },
+      {
+        platform: 'Android · armeabi-v7a',
+        file: 'Vellum/Vellum-V1.0.15-armeabi-v7a.apk',
+        version: 'v1.0.15',
+        size: '约 21 MB',
+      },
+      {
+        platform: 'Android · x86_64',
+        file: 'Vellum/Vellum-V1.0.15-x86_64.apk',
+        version: 'v1.0.15',
+        size: '约 24 MB',
       },
     ],
     repo: 'https://github.com/Niriko-mu/Vellum',
