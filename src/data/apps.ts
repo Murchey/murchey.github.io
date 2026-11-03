@@ -139,7 +139,7 @@ export const apps: AppItem[] = [
     tagline: '微信聊天风格的角色扮演 AI 应用',
     description:
       '一款角色扮演类微信聊天风格的 Flutter Android 应用：内置多个角色，可与角色进行一对一沉浸式聊天，支持发送图片、合并转发、角色包导入导出与自动更新。纯 Cupertino（iOS 风格）UI，仅适配 Android。所有数据均可自行导入导出，用户拥有完全的数据控制权。',
-    version: 'v1.7.4',
+    version: 'v1.7.5',
     updatedAt: '2026-11-02',
     size: '约 26–28 MB',
     platforms: ['Android'],
@@ -167,20 +167,20 @@ export const apps: AppItem[] = [
     packages: [
       {
         platform: 'Android · arm64-v8a',
-        file: 'AiChat/AiChat-V1.7.4-arm64-v8a.apk',
-        version: 'v1.7.4',
+        file: 'AiChat/AiChat-V1.7.5-arm64-v8a.apk',
+        version: 'v1.7.5',
         size: '约 27 MB',
       },
       {
         platform: 'Android · armeabi-v7a',
-        file: 'AiChat/AiChat-V1.7.4-armeabi-v7a.apk',
-        version: 'v1.7.4',
+        file: 'AiChat/AiChat-V1.7.5-armeabi-v7a.apk',
+        version: 'v1.7.5',
         size: '约 26 MB',
       },
       {
         platform: 'Android · x86_64',
-        file: 'AiChat/AiChat-V1.7.4-x86_64.apk',
-        version: 'v1.7.4',
+        file: 'AiChat/AiChat-V1.7.5-x86_64.apk',
+        version: 'v1.7.5',
         size: '约 28 MB',
       },
     ],
