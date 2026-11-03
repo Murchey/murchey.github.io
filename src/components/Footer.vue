@@ -4,6 +4,8 @@ import { Github, Mail } from 'lucide-vue-next'
 const currentYear = new Date().getFullYear()
 /** 备案号由构建时从本地 beian.json 注入，未配置时为空字符串。 */
 const icpBeian = __ICP_BEIAN__
+/** 公安备案号，同样由本地 beian.json 在构建期注入。 */
+const icpPolice = __ICP_POLICE__
 
 const links = [
   { name: '项目', path: '/projects' },
@@ -77,9 +79,10 @@ const socialLinks = [
             target="_blank"
             rel="noopener noreferrer"
             aria-label="公安网备案"
-            class="inline-flex items-center transition-opacity hover:opacity-80"
+            class="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
           >
             <img src="/beian-gongan.png" alt="公安网备案" class="h-5 w-auto" />
+            <span v-if="icpPolice">{{ icpPolice }}</span>
           </a>
         </div>
       </div>
