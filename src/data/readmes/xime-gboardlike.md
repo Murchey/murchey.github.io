@@ -2,210 +2,210 @@
   <img src="docs/branding/app-icon.png" alt="XimeGboard Logo" width="128">
 </p>
 
-<h1 align="center">XimeGboard — Wubi / Pinyin Input Method for Android</h1>
+<h1 align="center">XimeGboard — 五笔/拼音输入法</h1>
 
 <p align="center">
-  <a href="README.zh-CN.md">简体中文</a> · <a href="README.zh-TW.md">繁體中文</a>
+  <a href="README.md">English</a> · <a href="README.zh-TW.md">繁體中文</a>
 </p>
 
 <p align="center">
-  <sub>Personal fork of <a href="https://github.com/ximeiorg/Xime">Xime</a> by Kingz Cheung and contributors — not the upstream project.</sub>
+  <sub>基于 <a href="https://github.com/ximeiorg/Xime">Xime</a>（Kingz Cheung 与贡献者）的个人分支 — 不是上游项目。</sub>
 </p>
 
 [<img src="https://f-droid.org/badge/get-it-on.png"
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/com.kingzcheung.xime)
 
-<sub>This F-Droid badge points to the **upstream** Xime package. This fork is not published on F-Droid — get the APK from [GitHub Releases](https://github.com/Murchey/Xime-Gboardlike/releases) or [Gitee Releases](https://gitee.com/Murchey/Xime-Gboardlike/releases).</sub>
+<sub>此 F-Droid 徽章指向**上游** Xime 包。本分支未在 F-Droid 发布，安装包请从 [GitHub Releases](https://github.com/Murchey/Xime-Gboardlike/releases) 或 [Gitee Releases](https://gitee.com/Murchey/Xime-Gboardlike/releases) 下载。</sub>
 
-[Windows Version](https://github.com/ximeiorg/XimeYao) | [Linux Version](https://github.com/ximeiorg/XimeChe) | [Predictive Text Model](https://github.com/ximeiorg/predictive-text) | [Handwriting Model](https://github.com/ximeiorg/ochwpro)
+[Xime 输入法 (Windows 版)](https://github.com/ximeiorg/XimeYao) | [Xime 输入法 (Linux 版)](https://github.com/ximeiorg/XimeChe) | [联想词预测模型](https://github.com/ximeiorg/predictive-text) | [手写输入法模型](https://github.com/ximeiorg/ochwpro)
 
-An Android input method built on the [Rime](https://rime.im/) engine, designed for efficient Chinese text input with Wubi (五笔) and Pinyin support.
+一款基于 <a href="https://rime.im/">Rime</a> 引擎构建的 Android 五笔/拼音输入法，专注于简洁高效的中文输入体验。
 
-## About this fork
+## 关于本分支
 
-> **This is a personal fork: [Xime-Gboardlike](https://github.com/Murchey/Xime-Gboardlike), based on the original [Xime](https://github.com/ximeiorg/Xime) by Kingz Cheung and contributors. It is not the upstream project and does not speak for the original author.**
+> **这是个人分支：[Xime-Gboardlike](https://github.com/Murchey/Xime-Gboardlike)，基于 Kingz Cheung 与贡献者维护的原项目 [Xime](https://github.com/ximeiorg/Xime)。本分支不是上游项目，也不代表原作者。**
 
-**Design goal.** This fork reworks the input experience around the habits of **Gboard** and **fcitx5-android** users: a quieter, roomier candidate bar; Gboard-inspired color themes; straightforward font and personalization controls; practical clipboard retention options; and a build flow that is friendly to self-installation. The goal is to build a modern, customizable, plugin-capable input method together with the community — not to replace the upstream design.
+**设计理念。** 本分支围绕 **Gboard** 与 **fcitx5-android** 的使用习惯做改造：候选栏更安静、更宽松；采用 Gboard 风格主题色；字体与个性化入口更直接；剪贴板保留策略更实用；同时保持对个人安装友好的构建方式。目标是和社区一起打造一款现代化、可定制、支持插件的优秀输入法，而不是取代上游的设计。
 
-**Changes in this fork (on top of upstream):**
+**本分支的修改（在上游基础上）：**
 
-- Smarter candidate ordering: a built-in "collocation model" reads what you just typed and pulls fitting words to the front — type 就 and 绪 rises up to form 就绪. Works out of the box, no setup.
-- Fewer wrong picks among same-code characters: if Shuangpin/Pinyin leaves you staring at rows of homophones, tests show "the first one is right" goes from about 6 in 10 to 9 in 10, so you press digit keys far less; Wubi-style unique codes are unaffected.
-- The model is yours: it is a plain local file — import, export, delete, or disable it; no network, no uploads, and the data location stays under your control. You can even train the association model on your own typing data. Technical details in [Grammar model (gram)](#grammar-model-gram).
-- Font picker: system default / bundled font / imported fonts, applied globally.
-- A curated modern theme set — WeChat, QQ, Telegram, X, GitHub, ChatGPT, Gboard Gray, Gboard Black, and Claude — with light/dark palettes and independent light/dark selection, plus a personalization color panel with JSON import/export.
-- Gboard-style candidate bar: wider cells, vertical separators, down-chevron for more candidates; candidate code hints are off by default.
-- Clipboard retention from 1 hour up to 90 days, manual history-size input, and migration from the old day-based setting; expired entries are actively purged on a timer.
-- Schema settings: a smart deploy/rebuild button and one-tap clearing of compiled schema caches to free up storage.
-- A public signing key and `build_apk.bat` for signed, ABI-split personal builds.
-- A redesigned application icon: an original SVG mark (blue tile, white keyboard, turquoise X key) in the clean, rounded spirit of Gboard — not a copy of it. Source at [docs/branding/app-icon.svg](docs/branding/app-icon.svg); regenerate Android assets with `python scripts/generate-icons.py`.
+- 候选排序更聪明：内置一个「搭配模型」，会看着前文把更搭的词往前提——打了「就」，「绪」自动提前拼成「就绪」。装上即用，无需任何配置。
+- 同音字选得更准：拼音/双拼总在一堆同码字里挑花眼？实测「第 1 个就是对的」从约 6 成提到 9 成，按数字翻候选的次数明显变少；五笔这类编码唯一的输入不受影响。
+- 模型你说了算：模型就是个本地文件，可导入/导出/删除/停用，不联网、不上传，数据放哪由你掌控；联想模型还可以用你自己积累的输入训练专属版本。技术细节见 [语法模型（gram）](#语法模型gram)。
+- 字体选择：系统默认 / 内置字体 / 已导入字体，一次选择全局生效。
+- 精选现代主题：微信、QQ、Telegram、X、GitHub、ChatGPT、Gboard 灰、Gboard 黑、Claude；每套都适配浅色/深色，并支持浅色与深色分别选择；另有支持 JSON 导入导出的个性化调色面板。
+- Gboard 风格候选栏：更宽的候选格、竖向分隔线、更多候选下箭头；编码注释默认关闭。
+- 剪贴板自动清理支持 1 小时到 90 天，保留条数支持手动输入，并兼容旧版按天设置；过期条目按定时器主动删除。
+- 输入方案页提供「部署方案 / 重新编译」智能按钮，可一键清除已编译缓存释放存储空间。
+- 提供公共打包密钥与 `build_apk.bat`，便于生成按 ABI 分开的已签名个人安装包。
+- 重新设计应用图标：原创 SVG 标识（蓝色圆角底、白色键盘、青色 X 键），借鉴 Gboard 清爽圆润的风格但不照搬其图形。源文件见 [docs/branding/app-icon.svg](docs/branding/app-icon.svg)，可用 `python scripts/generate-icons.py` 重新生成 Android 资源。
 
-**Respect for the original work.** The Rime engine integration, plugin system, architecture, documentation, and the vast majority of the code are the work of **Kingz Cheung and the Xime contributors**. This fork only adds changes on top of their work and is released under the same **GPLv3** license. All credit for the original project remains with its authors. Upstream is the source of truth: if you want the original behavior, official releases, or official support, please use [ximeiorg/Xime](https://github.com/ximeiorg/Xime).
+**尊重原作者的代码与劳动。** Rime 引擎接入、插件体系、整体架构、文档以及绝大部分代码，均来自 **Kingz Cheung 与 Xime 贡献者**。本分支只在其成果之上做增量修改，并沿用 **GPLv3** 许可证；原项目的全部荣誉归原作者及贡献者所有。上游才是项目的源头：如果你希望使用原始行为、官方发布或官方支持，请使用 [ximeiorg/Xime](https://github.com/ximeiorg/Xime)。
 
-**Why publish the signing key?** A single build cannot satisfy every taste, workflow, or device. Publishing the community keystore (with its password in `app/keystore.properties`) lets anyone fork this project, adjust it, and produce a signed APK that can be installed without waiting for a maintainer. The key is for **personal, sideloaded builds only** — do not use it for app-store distribution or to impersonate the upstream project. Replace it with your own key for public releases.
+**为什么公开打包密钥？** 单一构建产物不可能完全符合所有人的审美、习惯和设备环境。公开社区 keystore（密码同样放在 `app/keystore.properties`），是为了让任何人都能 fork 本项目、按自己的喜好修改，并直接打出可安装、签名一致的 APK，而不必等待维护者。该密钥**仅用于个人侧载构建**，不要用于应用商店发布，也不要用来冒充上游项目；正式对外发布请替换为你自己的密钥。
 
-**Not the right fit?** This repository is an experiment in Gboard/fcitx5-android-style personalization. If its choices do not suit you, using the original Xime project is explicitly encouraged.
+**如果不适合你？** 本仓库只是对 Gboard / fcitx5-android 风格个性化的一次尝试。如果你的习惯与本分支不同，**推荐直接使用原仓库项目**。
 
 ---
 
-> This input method bundles all Rime Ice (雾凇拼音) schemas out of the box. The author primarily uses Xiaohe Shuangpin (小鹤双拼) with full Pinyin as a fallback, so resources focus on full Pinyin and Shuangpin. If you are a Wubi user, the upstream project is recommended — or import a better Wubi schema built for RIME.
+> 本地输入法内置雾凇拼音的所有方案，本人以小鹤双拼为主，全拼为辅，因此资源注重全拼和双拼。如果你是五笔用户，建议使用上游项目，或者导入基于 RIME 打造的更好的五笔方案使用。
 
-## Screenshots
+## 界面截图
 
-Captured on a real device (Android 13) via ADB from this build:
+以下截图取自本构建在真机（Android 13）上通过 ADB 实拍：
 
 <table align="center">
   <tr>
-    <td><img src="docs/screenshots/keyboard-light.png" width="180"><br><p align="center">Keyboard (Light)</p></td>
-    <td><img src="docs/screenshots/keyboard-dark.png" width="180"><br><p align="center">Keyboard (Dark)</p></td>
-    <td><img src="docs/screenshots/settings-main.png" width="180"><br><p align="center">Settings</p></td>
-    <td><img src="docs/screenshots/theme-settings.png" width="180"><br><p align="center">Theme & Customization</p></td>
+    <td><img src="docs/screenshots/keyboard-light.png" width="180"><br><p align="center">键盘（亮色）</p></td>
+    <td><img src="docs/screenshots/keyboard-dark.png" width="180"><br><p align="center">键盘（暗色）</p></td>
+    <td><img src="docs/screenshots/settings-main.png" width="180"><br><p align="center">设置主页</p></td>
+    <td><img src="docs/screenshots/theme-settings.png" width="180"><br><p align="center">主题与定制</p></td>
   </tr>
 </table>
 
-## Features
+## 功能特点
 
-- **Multiple Input Schemas** — All Rime Ice (雾凇拼音) schemas bundled (full Pinyin plus every Shuangpin variant: Xiaohe, Ziranma, MSPY, …), with Wubi 86/98 kept; custom schemas (Stroke, etc.) can be added via the schema marketplace or wireless import
-- **Rime Engine** — Powered by the mature and reliable Rime input method engine for accurate Chinese input
-- **Rich Keyboard Layouts** — QWERTY full keyboard, T9 Pinyin, Stroke 9-key, Handwriting, Numpad (with calculator)
-- **Floating Keyboard** — Floating card style with drag support, semi-transparent rounded design
-- **Voice-to-Text** — Optional speech recognition via built-in offline models and online ASR plugins (FunAsr, Volc, etc.; online providers require network and credentials)
-- **AI Enhancement** — Optional predictive text for faster input
-- **Contextual Grammar Model (gram)** — a bundled octagram language model re-ranks candidates against the full context; models are user-managed local files
-- **Clean UI** — Material Design 3, light/dark themes with multiple color schemes and independent light/dark selection
-- **Keyboard Adjustment** — Adjustable keyboard height and position
-- **Toolbar Customization** — Customizable toolbar button layout and functions
-- **Haptic Feedback** — Adjustable sound and vibration intensity
-- **Swipe Gestures** — Cursor movement, deletion, symbol input via swipe gestures
-- **Clipboard Manager** — Clipboard history with quick send, pinning and configurable retention
-- **Clipboard Sync** — Bidirectional clipboard sync with remote devices via plugins (WebDAV, ximed, S3, etc.)
-- **Optional Candidate Coding Hints** — Display Wubi codes for candidates to aid learning (off by default)
-- **Radical Display** — Swipe down on keys to show Wubi radicals for memory aid
-- **Physical Keyboard Support** — Floating candidate bar when using hardware/bluetooth keyboards
-- **WebDAV Sync** — Backup and restore schemas and settings via WebDAV
-- **Plugin Marketplace** — Extensible TypeScript plugins (kaomoji, clipboard sync, online ASR, etc.) via the built-in extension store
+- **多种输入方案** — 内置雾凇拼音全系方案（含小鹤/自然码/微软等各双拼），另保留五笔86/98；支持自定义方案（笔画等），可通过方案市场下载或无线导入
+- **Rime 引擎** — 使用成熟稳定的 Rime 输入法引擎，精准可靠的中文输入体验
+- **丰富键盘布局** — QWERTY 全键盘、T9 九宫格拼音、九宫格笔画、手写、数字（含计算器）
+- **悬浮键盘** — 悬浮卡片样式，支持拖拽移动、半透明圆角设计
+- **语音转文本** — 可选语音识别能力：内置离线模型与在线 ASR 插件（FunAsr、火山等；在线服务需联网并配置密钥）
+- **AI 智能增强** — 可选联想词预测，输入更高效
+- **上下文语法模型（gram）** — 内置八元语法模型，候选随上文整句重排；模型为用户可控的本地文件
+- **简洁界面** — Material Design 3 风格，浅色/深色主题多配色，支持浅色与深色分别选择
+- **键盘调节** — 支持键盘高度调整和位置移动
+- **工具栏定制** — 可自定义工具栏按钮布局和功能
+- **按键反馈** — 可调节音效和振动强度
+- **滑动手势** — 光标移动、删除、符号输入等滑动手势操作
+- **剪贴板管理** — 剪贴板历史记录，支持快捷发送、置顶与可配置保留策略
+- **剪贴板同步** — 通过插件与远端设备双向同步剪贴板（WebDAV、ximed、S3 等）
+- **候选词编码提示** — 候选词可显示五笔编码，辅助学习（默认关闭）
+- **字根显示** — 下滑按钮显示五笔字根，方便健忘用户
+- **实体键盘支持** — 连接物理/蓝牙键盘时显示浮动候选栏
+- **WebDAV 同步** — 通过 WebDAV 备份和恢复方案与配置
+- **插件市场** — 通过内置扩展商店安装可扩展 TypeScript 插件（颜文字、剪贴板同步、在线 ASR 等）
 
-## Grammar model (gram)
+## 语法模型（gram）
 
-**Upstream Xime does not include this design.** Its intelligent prediction works at the **application layer**: an ONNX association model plus a self-learned bigram/trigram cache of your own typing (persisted as JSON), fused to re-rank association candidates — a `.gram` file there is only treated as a generic binary in its file manager. This fork adds a complete **Rime engine-layer** grammar model (librime-octagram `*.gram`) pipeline on top of that:
+**上游 Xime 没有这套设计。** 上游的智能预测工作在**应用层**：ONNX 联想模型 + 用户输入自学习的二元/三元组缓存（JSON 持久化），融合后对联想词排序——`.gram` 在上游只是文件管理器里的普通二进制文件。本分支在其之上增加了一条完整的 **Rime 引擎层**语法模型（librime-octagram `*.gram`）链路：
 
-| | Upstream Xime | This fork |
+| | 上游 Xime | 本分支 |
 | --- | --- | --- |
-| Prediction layer | Application layer (ONNX association + user n-gram cache) | The same, plus a Rime engine-layer octagram grammar model |
-| Grammar model | — | Bundled `XimeGboard.gram` (character n-gram, ~26 MB), shipped inside the APK |
-| Scope | Association candidates | Candidate ranking of every enabled schema (global activation) |
-| Model management | — | Import / export / delete / disable in-app, with file-format validation |
-| Custom models | — | Import any compatible `.gram`; full training pipeline for the association model in [`ModelTrainning/`](ModelTrainning/) |
+| 预测层次 | 应用层（ONNX 联想 + 用户 n-gram 缓存） | 同上游，另加 Rime 引擎层八元语法模型 |
+| 语法模型 | — | 内置 `XimeGboard.gram`（字符 n-gram，约 26MB），随 APK 分发 |
+| 生效范围 | 联想候选 | 全部已启用方案的候选排序（一键全局激活） |
+| 模型管理 | — | App 内导入 / 导出 / 删除 / 停用，带文件格式校验 |
+| 自定义模型 | — | 可导入任意兼容的 `.gram`；联想模型的完整训练流水线在 [`ModelTrainning/`](ModelTrainning/) |
 
-**How it works.** Activation writes `grammar/language` and `translator/contextual_suggestions` into each schema's custom config; the Rime engine then re-ranks candidates against the whole preceding sentence. This acts on the candidate list itself and complements the application-layer association.
+**工作原理。** 激活时向每个方案的自定义配置写入 `grammar/language` 与 `translator/contextual_suggestions`，由 Rime 引擎在取词阶段按上文整句对候选重排。它直接作用于候选列表，与应用层联想互补。
 
-**Scoring (for the curious).** Ranking runs through `Octagram::Query(context, word)`: up to 3 trailing context characters + up to 3 leading candidate characters form 2–6 character keys, probed by longest-prefix match against a Darts double-array trie. Each hit scores `ln P(gram|prefix) + 10` with a length-dependent penalty (`collocation_penalty = -12`, `weak = -24`; no hit is always `-12`), and the maximum wins. The training tool emits values in exactly this range (`value = P·e¹⁰`, weak collocations floored out).
+**打分机制（给想深挖的读者）。** 排序由 `Octagram::Query(context, word)` 完成：取上文末尾 ≤3 字 + 候选开头 ≤3 字拼成 2~6 字键，在 Darts 双数组 trie 上做最长前缀命中；每个命中得 `ln P(gram|prefix) + 10`，再按搭配长度施加惩罚（`collocation_penalty = -12`、`weak = -24`，未命中恒为 `-12`），取最大值。训练侧的值域与此严格对齐（`value = P·e¹⁰`，低强度搭配截断为 0 分退化为默认）。
 
-**Measured discrimination.** On 26 same-code homophone sets, comparing gram re-ranking against corpus character frequency (a proxy for plain dictionary order):
+**实测判别力。** 在 26 组同音易混候选集上，对比「gram 重排」与「语料字频序（模拟纯词典默认序）」：
 
-| Ranking | Correct candidate at #1 | MRR |
+| 排序方式 | 正确候选排第 1 | MRR |
 | --- | --- | --- |
-| gram re-ranking | 24/26 (92%) | 0.96 |
-| character frequency (plain-dictionary proxy) | 15/26 (58%) | 0.77 |
-| random | ≈19% | — |
+| gram 重排 | 24/26（92%） | 0.96 |
+| 字频序（纯词典近似） | 15/26（58%） | 0.77 |
+| 随机序 | ≈19% | — |
 
-(Offline probe measuring ranking power; end-to-end commit accuracy also depends on dictionary recall and your personal frequencies — words you type often already rank first, so gram's gains concentrate on rare words and first-time collocations.)
+（离线抽测，衡量的是排序判别力；端到端上屏还受词典召回与个人词频影响——常打的词本来就排第 1，gram 的增益集中在低频词与首次输入的搭配上。）
 
-**Works out of the box.** The model is bundled and enabled by default. It is a plain local file: export, back up, delete, or disable it at will (ranking then falls back to the engine default) — the location of your data stays under your control.
+**开箱即用。** 模型随 APK 内置并默认启用，且是纯本地文件：可随时导出、备份、删除或停用（停用后排序恢复引擎默认）——数据存放位置始终由用户掌控。
 
-**Train your own.** Import any octagram-compatible `.gram` to replace the bundled one. For the association model, [`ModelTrainning/`](ModelTrainning/) contains the complete pipeline (corpus → training → int8 quantization → importable package) with a step-by-step guide in [`ModelTrainning/modelGuide.md`](ModelTrainning/modelGuide.md).
+**自训模型。** 导入任意八元语法兼容的 `.gram` 即可替换内置模型。联想模型方面，[`ModelTrainning/`](ModelTrainning/) 提供完整流水线（语料 → 训练 → int8 量化 → 可导入模型包），分步指南见 [`ModelTrainning/modelGuide.md`](ModelTrainning/modelGuide.md)。
 
-## Requirements
+## 系统要求
 
-- Android 9.0 (API 28) or later
+- Android 9.0 (API 28) 及以上
 
-## Installation
+## 安装
 
-### From Releases
+### 从 Release 下载
 
-1. Download the latest APK from [this fork's Releases](https://github.com/Murchey/Xime-Gboardlike/releases) matching your device ABI:
+1. 在 [本分支 Releases](https://github.com/Murchey/Xime-Gboardlike/releases) 页面下载与设备架构匹配的最新 APK：
 
-   - **arm64-v8a**: Modern phones (recommended for most users)
-   - **armeabi-v7a**: Older 32-bit phones
-   - **x86_64**: Emulators
-   - **universal**: All architectures (larger file size)
+   - **arm64-v8a**: 适用于大多数现代手机（**绝大部分人的手机都是这个**）
+   - **armeabi-v7a**: 适用于旧款32位手机
+   - **x86_64**: 适用于模拟器
+   - **universal**: 包含所有架构，体积较大
 
-2. Install the application
-3. Enable XimeGboard in system input method settings
-4. Set XimeGboard as the current input method
+2. 安装应用
+3. 在系统设置中启用 XimeGboard 输入法
+4. 将 XimeGboard 设为当前输入法
 
-### Downloads from mainland China
+### 国内下载
 
-The APK is also distributed on Gitee, which is faster and more reliable from mainland China:
+本分支在 Gitee 同步分发安装包，国内访问更快、更稳定：
 
-- Repository: [https://gitee.com/Murchey/Xime-Gboardlike](https://gitee.com/Murchey/Xime-Gboardlike)
-- APKs: open the **Releases** page of that repository and download the latest build for your ABI (arm64-v8a / armeabi-v7a / x86_64 / universal), same choices as above.
+- 仓库：[https://gitee.com/Murchey/Xime-Gboardlike](https://gitee.com/Murchey/Xime-Gboardlike)
+- 安装包：到该仓库的 **发行版（Releases）** 页面下载与设备架构匹配的最新 APK，选择方式同上（arm64-v8a / armeabi-v7a / x86_64 / universal）。
 
-GitHub and Gitee releases carry the same content — use whichever is easier to reach. If neither is stable for you, build from source below.
+GitHub 与 Gitee 的 Release 内容一致，任选其一即可；若两边都下载不稳定，也可以[从源码构建](#从源码构建)后自行安装。
 
-### Build from Source
+### 从源码构建
 
-Requirements: JDK 17+, Android SDK/NDK (see `local.properties`), CMake 3.22+, and initialized git submodules.
+环境要求：JDK 17+、Android SDK/NDK（见 `local.properties`）、CMake 3.22+，并初始化 git 子模块。
 
 ```bash
-# Clone this fork with submodules
+# 克隆本分支（包含子模块）
 git clone --recursive https://github.com/Murchey/Xime-Gboardlike.git
 
-# Or initialize submodules in an existing clone
+# 或者在已克隆的项目中初始化子模块
 git submodule update --init --recursive
 
-# Debug build (for development and verification)
+# Debug 构建（开发验证用）
 ./gradlew assembleDebug
 
-# Release build (signed when app/keystore.properties exists)
+# Release 构建（存在 app/keystore.properties 时自动签名）
 ./gradlew assembleRelease
 ```
 
-On Windows, run `build_apk.bat` from the repository root. It builds signed release APKs for each ABI and copies them to `dist/`.
+Windows 下在仓库根目录运行 `build_apk.bat`，会生成按 ABI 分开的已签名 release APK，并复制到 `dist/`。
 
-> Build intermediates (`app/build/`, `app/.cxx/`) can grow to several GB. They are generated, not source, and can be deleted safely when you are done building.
+> 构建中间产物（`app/build/`、`app/.cxx/`）可能达到数 GB；它们是生成文件而非源码，打包完成后可以安全删除。
 
-### Signed personal builds
+### 个人签名打包
 
-This fork ships a public community keystore (`app/xime-gboard.jks` + `app/keystore.properties`) so that anyone can produce an installable, consistently signed APK without extra setup. The key is for **personal, sideloaded builds only** — for public distribution, replace the community keystore with your own key.
+本分支随仓库提供公共社区证书（`app/xime-gboard.jks` + `app/keystore.properties`），无需额外配置即可生成可安装、签名一致的 APK。该密钥**仅用于个人侧载构建**；如需对外正式发布，请替换为你自己的密钥。
 
-## Plugins (Optional)
+## 插件（可选）
 
-Plugins are TypeScript modules packaged as `.xipk` archives, installable and enabled from the app's Settings > Extension Store. Examples of plugins maintained in this repository:
+插件为 TypeScript 模块打包的 `.xipk` 归档，可在主应用"设置 > 扩展商店"中安装和启用。本仓库维护的部分插件：
 
-- **kaomoji**: Kaomoji text emoticons
-- **meme-bunny**: Fun bunny sticker pack
-- **funasr-asr** / **volc-asr** / **tencent-asr**: Online speech recognition providers
-- **webdav-clipboard-sync** / **ximed-clipboard-sync** / **s3-clipboard-sync**: Clipboard sync providers
-- **webdav-backup**: WebDAV backup and restore
-- **ai-reply** / **ai-write** / **qwen-translate**: AI assistance plugins
-- **quick-phrase** / **typing-stats**: Input productivity tools
+- **kaomoji**: 颜文字插件（提供精选颜文字）
+- **meme-bunny**: 恶搞兔表情包插件
+- **funasr-asr** / **volc-asr** / **tencent-asr**: 在线语音识别服务
+- **webdav-clipboard-sync** / **ximed-clipboard-sync** / **s3-clipboard-sync**: 剪贴板同步服务
+- **webdav-backup**: WebDAV 备份与恢复
+- **ai-reply** / **ai-write** / **qwen-translate**: AI 辅助插件
+- **quick-phrase** / **typing-stats**: 输入效率工具
 
-For the full plugin list, see the [Plugin Center](https://ime.ximei.me/plugin-list.html), or browse and install directly from the app's Settings > Extension Store. Some plugins are hosted remotely only and are not bundled in this repository.
+更多插件请查看 [插件中心列表](https://ime.ximei.me/plugin-list.html)，或直接到手机应用的"设置 > 扩展商店"中浏览安装。部分插件仅托管在远程插件中心，不随本仓库附带。
 
-### Plugin development
+### 插件开发
 
-Plugin sources are TypeScript modules (`plugins/<name>/main.ts` + `manifest.json` + `resources/`) defined with `definePlugin({...})` and compiled by the `xipm` CLI into a single QuickJS-executable `main.js`, then packaged as `.xipk`:
+插件源码为 TypeScript 模块（`plugins/<name>/main.ts` + `manifest.json` + `resources/`），用 `definePlugin({...})` 定义扩展点，由 `xipm` CLI 编译为 QuickJS 可执行的单文件 `main.js`，再打包为 `.xipk`：
 
 ```bash
-xipm build          # compile all plugins -> build/plugin-js/
-xipm pack           # package all plugins -> build/plugin-release/*.xipk
-xipm test           # run plugin tests (QuickJS + mock host, no device needed)
+xipm build          # 编译全部插件 -> build/plugin-js/
+xipm pack           # 打包全部插件 -> build/plugin-release/*.xipk
+xipm test           # 运行插件测试（QuickJS + mock host，无需真机）
 ```
 
-See [tools/xime-plugin/README.md](tools/xime-plugin/README.md) for the full CLI reference.
+完整 CLI 用法见 [tools/xime-plugin/README.md](tools/xime-plugin/README.md)。
 
-## Documentation
+## 使用文档
 
-For detailed documentation, visit [https://ime.ximei.me](https://ime.ximei.me).
+详细使用说明请查看 [使用文档](https://ime.ximei.me)。
 
-- [FAQ](https://ime.ximei.me/faq.html)
-- [Rime Schemas List](https://ime.ximei.me/rime-list.html)
-- [Plugin List](https://ime.ximei.me/plugin-list.html)
-- [AI Models List](https://ime.ximei.me/model-list.html)
+- [常见问题 FAQ](https://ime.ximei.me/faq.html)
+- [Rime 方案列表](https://ime.ximei.me/rime-list.html)
+- [插件列表](https://ime.ximei.me/plugin-list.html)
+- [AI 模型列表](https://ime.ximei.me/model-list.html)
 
-## Tech Stack
+## 技术栈
 
 - Kotlin
 - Jetpack Compose
@@ -213,27 +213,26 @@ For detailed documentation, visit [https://ime.ximei.me](https://ime.ximei.me).
 - Rime (librime)
 - JNI (Native C++)
 
-## Contributing
+## 贡献
 
-Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a PR.
+欢迎贡献！在提交 PR 之前，请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 了解贡献流程。
 
-Core rules:
-- **File an Issue first** — All changes require a prior discussion via an Issue
-- **Minimal changes** — PRs must contain only the minimum changes needed
-- **GPG signing** — All commits must be GPG-signed
+核心规则：
+- **先提 Issue** — 所有改动必须先创建 Issue 讨论
+- **最小修改** — PR 只包含所需的最小改动
+- **GPG 签名** — 所有 commit 必须 GPG 签名
 
-## Acknowledgments
+## 致谢
 
-- [Rime](https://rime.im/) - Input method engine
-- [Trime](https://github.com/osfans/trime) - Configuration reference
-- [fcitx5-android](https://github.com/fcitx5-android/fcitx5-android) - Keyboard layout reference
-- [onnxruntime](https://github.com/microsoft/onnxruntime) - ONNX inference runtime for predictive text and speech recognition models
+- [Rime](https://rime.im/) - 中州韵输入法引擎
+- [Trime](https://github.com/osfans/trime) - 同文输入法，配置参考
+- [fcitx5-android](https://github.com/fcitx5-android/fcitx5-android) - 键盘布局参考
+- [onnxruntime](https://github.com/microsoft/onnxruntime) - 联想词预测与语音识别的 ONNX 推理引擎
 
-## License
+## 许可证
 
 GPLv3 License
 
-The original Xime project is © Kingz Cheung and contributors; new modifications in this fork are released under the same GPLv3 license. See [LICENSE](LICENSE).
+原 Xime 项目 © Kingz Cheung 与贡献者；本分支的新增修改同样以 GPLv3 发布，详见 [LICENSE](LICENSE)。
 
-The Xime name, logo and other brand assets are **not** covered by the GPLv3 license.
-See [TRADEMARKS.md](TRADEMARKS.md) for details.
+"Xime" 名称、Logo 及其他品牌资产**不在** GPLv3 开源授权范围内，详见 [TRADEMARKS.md](TRADEMARKS.md)。

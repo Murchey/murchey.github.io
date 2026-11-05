@@ -1,160 +1,172 @@
-# InkQilin Ledger
+# 墨麒麟记账 (InkQilin Ledger)
 
-A personal finance Android app built with Jetpack Compose and Material 3. Supports dark/light themes, multi-currency management, bill tracking, category statistics, Excel import/export, and a social gift ledger.
+> **For English documentation, see [README.md](README.md)**
 
-> **中文文档请参阅 [README_CN.md](README_CN.md)**
+一款基于 Jetpack Compose 构建的 Android 个人记账应用，采用 Material 3 设计语言，支持深浅色主题、多币种管理、账单管理、分类统计、资产跟踪、Excel 导入导出、人情账本等功能。
 
-## Features
+## 功能特性
 
-### Core
+### 主账本
 
-- **Transaction Management** — Quickly add income/expense entries with custom amounts, notes, categories, and dates
-- **Amount Keypad Arithmetic** — Edit and add-transaction amount input supports `+ − × ÷` and parentheses (e.g. `(20+5)×2`), with backspace, clear, and live preview
-- **Multi-Currency Support** — Manage multiple currencies with customizable card colors, symbols, and names; switch default currency anytime
-- **Monthly Overview Card** — Displays total income, expense, and net balance for the selected month with a year-month picker
-- **7-Day Trend Chart** — Visual bar chart of daily spending over the past week
-- **Category System** — Built-in categories for income and expenses; create custom categories with icons and colors
-- **Bill Editing** — Swipe left on any transaction to reveal edit/delete options; modify amount, note, type, category, and date
-- **Statistics** — View spending by week, month, year, or custom date range (inclusive of both start and end dates); drill down by category; period-over-period comparison with daily average
-- **Asset Management** — Track assets across 8 types (real estate, stocks, funds, bonds, deposits, insurance, crypto, other); view totals and breakdowns by type
-- **Search** — Search transactions by keyword
+- **记账管理** — 快速添加收入/支出账单，支持自定义金额、备注、分类和日期
+- **金额键盘四则运算** — 记账/编辑金额支持 `+ − × ÷` 与括号，例如 `(20+5)×2`；含退格、清除与实时预览
+- **多币种管理** — 支持多币种资产管理，每种货币可自定义颜色卡片、符号和名称，支持切换默认币种
+- **月度概览卡片** — 显示当月总收入/总支出/净余额，支持年月选择器切换月份
+- **7日趋势图** — 近7日每日支出柱状图
+- **消费提醒** — 智能版专属，自动检测异常消费模式（如某分类支出偏高、单日高额消费等），点击可查看详情
+- **分类系统** — 内置多种收支分类，支持用户自定义创建新分类，可自定义图标和颜色
+- **账单编辑** — 左滑账单条目展示编辑/删除菜单，弹窗修改金额、备注、类型、分类、时间
+- **数据统计** — 按周/月/年/自定义时间范围查看收支统计（自定义范围包含起止日期），支持按分类钻取查看明细，环比上期卡片展示日均支出
+- **财务评分** — 智能版专属，统计页面展示，基于储蓄率、预算使用等维度综合评估财务健康度，点击可展开查看细分指标
+- **资产管理** — 支持8种资产类型（房产、股票、基金、债券、存款、保险、数字货币、其他），记录资产名称、当前价值、购入价格和备注，统计界面展示资产分布
+- **预算管理** — 设置月度预算后，首页显示预算卡片，包含总预算进度和分类支出占比
+- **搜索功能** — 按关键词搜索账单
 
-### AI & Lab Features
+### AI 与实验室功能
 
-- **AI Financial Analysis** (Smart Mode only) — Automated daily analysis of spending patterns; displays a financial score (0-100) and up to 3 consumption alerts on the home screen
-- **OCR Batch Recognition** — Upload bill images (batch supported) for AI vision model recognition; auto-extracts date, amount, category, and note for one-tap import
-- **Separate API Configuration** — Independent API settings for OCR and analysis, with a one-tap sync button between them
-- **Auto Bookkeeping** — Monitors Alipay, WeChat Pay, and UnionPay notifications; auto-parses and records transactions with deduplication
-- **Smart Keyword Classification** — 50+ built-in keyword rules (e.g. "takeout" -> Dining, "Didi" -> Transport); add/edit/delete custom rules
-- **Ad Filtering** — Automatically detects and filters non-transaction notifications (ads, marketing, coupons) from payment apps
-- **Zero-Amount Filtering** — Ignores 0-amount notifications to avoid invalid records
+- **AI 财务分析**（仅智能版） — 每日首次进入页面自动触发分析，显示财务评分（0-100）和最多3条消费提醒；基础版下绝对不会触发
+- **OCR 批量识别** — 通过 AI 视觉模型识别账单图片（支持批量上传或从记账相册选择），自动提取日期、金额、分类和备注并一键导入
+- **独立 API 配置** — OCR 识别和收支分析使用独立的 API 配置，支持一键同步
+- **自动记账** — 监听支付宝、微信支付、云闪付通知，自动解析交易信息并记录账单，支持后台去重
+- **智能关键词分类** — 内置 50+ 常见中文关键词配置（如"外卖"→餐饮、"滴滴"→交通），支持自定义添加/编辑/删除关键词分类规则
+- **广告智能过滤** — 自动识别并过滤支付宝、微信中的广告、营销、优惠券等非交易通知，避免误记录
+- **多支付平台支持** — 支持支付宝（含"付款成功"类型通知）、微信支付、云闪付三大支付平台的账单通知识别
+- **0元账单过滤** — 自动忽略0元金额的账单通知，避免记录无效交易
 
-### Social Gift Ledger (RenQing)
+### 人情账本
 
-- **Event Recording** — Track weddings, funerals, birthdays, housewarming, graduations, baby showers, and more
-- **Direction Tracking** — Mark gifts as "received" or "given"; auto-calculates net amounts
-- **Contact Management** — Maintain a contact list with relationship categories (family, friend, colleague)
-- **Tag System** — Custom tags (e.g. family, school, workplace) with icons and colors
-- **Annual Dashboard** — Yearly income/expense/net summary with monthly breakdowns
-- **Tag & Contact Analytics** — View gift distribution by tag and contact rankings
-- **Excel Export** — Export gift records and contacts by time range
+- **事件记录** — 记录婚礼、丧礼、生日、乔迁、升学、满月等人情往来事件
+- **方向标记** — 区分「收到」和「送出」，自动计算净额
+- **联系人管理** — 维护人情联系人列表，支持亲属/朋友/同事等关系分类
+- **标签系统** — 自定义人情标签（如家族、同学、单位），支持自定义图标和颜色
+- **年度仪表盘** — 按年查看总收入/总支出/净额，按月查看明细
+- **标签统计** — 按标签维度查看人情往来分布
+- **关系分析** — 按联系人维度查看往来金额排行与收支分布
+- **联系人详情** — 查看单个联系人的所有来往记录与净额汇总
+- **Excel 导出** — 支持按时间范围（全部/本年/自定义）导出人情账单和联系人列表
 
-### Data Management & Backup
+### 数据管理与备份
 
-- **Flexible Export** — Export transactions by "All / This Year / Custom Range" for both ledgers
-- **Excel Export** — One-tap export to Excel with custom save location
-- **Template Download** — Download a pre-formatted template for bulk import
-- **Smart Import** — Import from Excel; auto-creates missing categories
-- **Local Backup** — Pack the Room database into a zip under the app-private directory; export to system storage, restore, or delete from history
-- **Cloud Backup (Tencent COS)** — Private read/write COS: configure SecretId/SecretKey and bucket URL, then upload/list/restore/delete backups
-- **Optional Password Encryption** — Backups can be encrypted with AES-256-GCM (key via PBKDF2-HmacSHA256); encrypted restores require the password
-- **Hard Delete** — Local backups are overwritten before unlink; cloud deletes are verified as gone; home-screen bills use hard delete with SQLite `secure_delete` to reduce residual recovery from the DB file
-- **Safe Exit After Restore** — After restore, a dialog offers one-tap force-close so the app reloads the new database
+- **时间范围导出** — 导出账单时可选择「全部 / 本年 / 自定义起止日期」，主账本和人情账本均支持
+- **Excel 导出** — 一键导出账单为 Excel 文件，支持自选存储位置
+- **模板下载** — 下载账单模板文件（含填写说明），方便批量导入数据
+- **智能导入** — 从 Excel 导入账单，自动识别并创建不存在的分类
+- **数据备份（本地）** — 将 Room 数据库打包为 zip 存入应用私有目录；支持导出到系统文件、列表恢复与删除
+- **数据备份（云端 COS）** — 支持腾讯云对象存储私有读写：配置 SecretId/SecretKey 与存储桶 URL 后可上传/列出/恢复/删除备份
+- **可选密码加密** — 备份时可选择 AES-256-GCM 加密（PBKDF2-HmacSHA256 派生密钥）；恢复加密包时需输入密码
+- **删除即不可恢复** — 本地备份删除前会先覆写文件内容再移除；云端删除后会校验对象已不存在；首页账单为硬删除并开启 SQLite `secure_delete`，尽量避免从数据库文件残留页恢复
+- **恢复后安全退出** — 恢复完成后提示一键关闭应用，避免仍使用旧数据库连接
 
-### General
+### 通用
 
-- **App Mode Toggle** — Basic Mode (privacy-focused, local-only) and Smart Mode (AI-powered analysis, financial scoring, consumption alerts)
-- **Theme Customization** — Light mode (#715CFF purple) / Dark mode (#51B4FF blue); follows system setting
-- **Custom Colors** — Customize income/expense display colors across all views
-- **Immersive UI** — Full-screen layout with transparent status and navigation bars
-- **Update Checker** — Optional startup check against the latest Gitee Release, plus a manual “Check for updates” action in Settings; view changelog and download via Gitee / GitHub / proxy
-- **Configurable Update Repos** — Point the update checker at any Gitee repository and set the GitHub download repository (`owner/repo` or full URL); both settings are persisted
-- **Settings State Kept** — Expanded/collapsed settings sections survive navigation to secondary screens and back
-- **About (Top-Level)** — Dedicated settings section with version info, Gitee/GitHub links, and a usage guide
+- **应用版本切换** — 支持基础版（注重隐私保护，数据本地存储）和智能版（加强AI功能，含财务评分、消费提醒）两种模式
+- **主题定制** — 浅色模式 (#715CFF) / 深色模式 (#51B4FF)，支持跟随系统自动切换
+- **颜色管理** — 自定义收入/支出展示颜色，应用于所有账单条目和统计图表
+- **沉浸式显示** — 全屏沉浸式布局，透明状态栏与导航栏
+- **更新检测** — 启动时可自动检测 Gitee 最新 Release，也支持设置页手动检查；可查看更新日志，并从 Gitee / GitHub / 代理源下载安装
+- **可配置检测仓库** — 在设置中指定 Gitee 更新检测仓库与 GitHub 下载仓库（`owner/repo` 或完整地址），持久化保存
+- **设置状态保持** — 设置页各分区展开/收起状态在进入二级页返回后仍会保留
+- **关于（一级入口）** — 独立设置分区：版本信息、Gitee/GitHub 仓库链接、使用引导
 
-## Tech Stack
+## 技术栈
 
-| Technology | Purpose |
-|------------|---------|
-| Kotlin | Language |
-| Jetpack Compose | Declarative UI framework |
-| Material 3 | Design system |
-| Room | Local database |
-| Navigation Compose | Screen navigation |
-| DataStore | Preferences storage |
-| Apache POI | Excel read/write |
-| OkHttp | Network requests (update check, AI API) |
+| 技术 | 说明 |
+|------|------|
+| Kotlin | 开发语言 |
+| Jetpack Compose | 声明式 UI 框架 |
+| Material 3 | UI 设计规范 |
+| Room | 本地数据库 |
+| Navigation Compose | 页面导航 |
+| DataStore | 偏好数据存储 |
+| Apache POI | Excel 文件读写 |
+| OkHttp | 网络请求（更新检测、AI API） |
 
-## Requirements
+## 环境要求
 
-- **Android Studio** Hedgehog (2023.1.1) or later
-- **JDK** 8+
+- **Android Studio** Hedgehog (2023.1.1) 或更高版本
+- **JDK** 8 或以上
 - **Android SDK** compileSdk 34
-- **Minimum device** Android 8.0 (API 26)
+- **最低支持设备** Android 8.0 (API 26)
 
-## Quick Start
+## 快速开始
 
-### 1. Clone
+### 1. 克隆项目
 
 ```bash
-git clone <repo-url>
+git clone <仓库地址>
 cd inkqilin-ledger
 ```
 
-### 2. Build & Run
+### 2. 配置 Gradle 镜像（国内用户）
+
+项目已内置阿里云 Maven 镜像配置（位于 `settings.gradle.kts`），国内用户可直接构建。
+
+### 3. 构建运行
 
 ```bash
-# Debug build
+# 调试版构建
 ./gradlew assembleDebug
 
-# Install to device
+# 安装到设备
 ./gradlew installDebug
 ```
 
-Or open the project in Android Studio and click **Run**.
+或直接使用 Android Studio 打开项目，点击 **Run** 按钮运行。
 
-> For users in China: the project includes Alibaba Cloud Maven mirror configuration in `settings.gradle.kts`.
+## 主题配色
 
-## Theme Colors
+| 模式 | 主题色 | 说明 |
+|------|--------|------|
+| 浅色模式 | `#715CFF` | 紫色系 |
+| 深色模式 | `#51B4FF` | 蓝色系 |
 
-| Mode | Color | Description |
-|------|-------|-------------|
-| Light | `#715CFF` | Purple theme |
-| Dark | `#51B4FF` | Blue theme |
+收入/支出的展示颜色可在设置中自定义，应用于账单条目、统计图表等全局位置。
 
-Income/expense display colors are customizable in Settings and apply globally to all transaction views and charts.
+## 隐私政策
 
-## Privacy Policy
+> 完整文案见应用内：**设置 → 关于 → 隐私政策**（首次启动也会展示）。以下为摘要，与应用内全文一致。
 
-> Full text in the app: **Settings → About → Privacy Policy** (also shown on first launch). Summary below matches the in-app policy.
+**我们是谁** — 开源 Android 记账应用（GPL-3.0），源码公开可审计；无广告 SDK、无统计埋点、无账号体系。
 
-**Who we are** — An open-source Android ledger (GPL-3.0). Source is public and auditable; no ad SDK, no analytics, no account system.
+**数据在哪** — 账单、人情、资产、分类、设置、相册照片均保存在**本机**（私有目录 / Room / DataStore）。**基础版**模式下数据完全不离开手机。
 
-**Where data lives** — Transactions, social ledger, assets, categories, settings, and album photos stay **on your device** (app-private files / Room / DataStore). In **Basic Mode**, data never leaves the phone.
+**我们收集什么** — **不收集、不上传、不分析**个人身份信息或账单内容到开发者服务器。
 
-**What we collect** — **Nothing** is collected, uploaded, or analyzed on developer servers—no personal identity data and no ledger contents.
+**权限与可选联网**（均由你主动开启；关闭即不联网）：
 
-**Permissions & optional network** (all user-initiated; off means no network):
+| 能力 | 用途 |
+|------|------|
+| 相机 / 存储 | 系统相机拍照、相册选图、导出 Excel |
+| 通知监听 | 自动记账：解析支付宝/微信/云闪付通知写入本地，可随时在系统设置撤销 |
+| 网络 | ① 应用更新检测（Gitee/GitHub）② 智能版 AI/OCR（**你自配** API）③ 云备份（**你自配** COS 密钥与存储桶） |
 
-| Capability | Purpose |
-|------------|---------|
-| Camera / storage | System camera capture, gallery pick, Excel export |
-| Notification listener | Auto-bookkeeping: parse Alipay/WeChat/UnionPay notifications into local entries; revoke anytime in system settings |
-| Network | ① App update check (Gitee/GitHub) ② Smart-mode AI/OCR (**your** API endpoint) ③ Cloud backup (**your** COS keys & bucket) |
+**AI 与云备份** — 仅在你开启并自行配置后发生；请求走你指定的接口/存储桶，开发者无法访问密钥与请求内容。备份可选 AES-256-GCM 加密。
 
-**AI & cloud backup** — Only when you enable and configure them; requests go to endpoints/buckets you own. Developers cannot access your keys or payloads. Backups support optional AES-256-GCM encryption.
+**你的控制权** — 导出/导入/恢复/删除备份；账单硬删除（SQLite `secure_delete`）；卸载即清除应用数据。
 
-**Your control** — Export / import / restore / delete backups; hard-deleted bills (`SQLite secure_delete`); uninstall removes app data.
+**联系方式** — 通过开源仓库 Issue 反馈：[Gitee](https://gitee.com/Murchey/inkqinlin-ledger) · [GitHub](https://github.com/Murchey/inkqilin-ledger)
 
-**Contact** — File issues on the repos: [Gitee](https://gitee.com/Murchey/inkqinlin-ledger) · [GitHub](https://github.com/Murchey/inkqilin-ledger)
-
-## Recent Updates
+## 最近更新
 
 ### 2026-09
 
-- **Privacy policy** — First-launch disclosure dialog (remembered after accept); re-readable under Settings → About
-- **HarmonyOS (ZhuoyiTong) album crash fix** — CameraX removed; pull-to-shoot uses the **system camera** only (avoids native abort on the compat layer); capture URI survives process death
-- **Auto-bookkeeping on HarmonyOS** — Full Throwable guards; safe disable + “not supported” hint in compat mode
-- **Album viewer** — Swipe left/right to change photos (system-gallery gesture), with page counter
-- **Bottom nav bar** — Fixed disappearing forever after system back from album
-- **Motion performance** — Lighter list entry, skeletons, nav transitions, tab indicator for low-end devices
-- **Amount keypad** — Live result preview, `00` key, grouped operators, invalid input keeps keypad open
-- **Edit-bill return** — Restores month + scroll position on the home list
-- **Color picker** — Drag to pick value/hue
-- **Home background sheet** — Height hugs content; action buttons visible on first open
-- **Repo links** — GitHub unified to [github.com/Murchey/inkqilin-ledger](https://github.com/Murchey/inkqilin-ledger)
-- **Home widgets** — Visual refresh (ink cards / segmented actions)
+- **隐私政策** — 首次启动展示声明窗口（同意后不再弹）；设置 → 关于 可随时查看
+- **鸿蒙（卓易通）相册闪退修复** — 移除 CameraX，下拉拍照统一调用**系统相机**，避免兼容层 native abort；拍照 URI 可在进程重建后恢复
+- **自动记账鸿蒙降级** — 通知监听全链路异常防护；兼容模式下安全关闭并提示不支持
+- **相册看图** — 支持左右滑切换上一张/下一张（系统相册手势），顶栏显示页码
+- **底部导航栏** — 修复从相册按系统返回后底栏消失且无法恢复的问题
+- **动画性能** — 列表入场/骨架屏/导航转场/Tab 指示器降载，低端机更顺滑
+- **金额键盘** — 实时结果预览、`00` 键、运算符分区、校验失败不关闭
+- **编辑账单返回** — 保留原浏览月份与列表滚动位置
+- **自定义取色器** — 支持按住拖动选色（明度/色相）
+- **首页背景图面板** — 高度随内容收缩，底部按钮首开即见
+- **开源仓库** — GitHub 统一为 [github.com/Murchey/inkqilin-ledger](https://github.com/Murchey/inkqilin-ledger)
+- **桌面小组件** — 视觉重制（墨色卡片 / 分区按钮）
 
-## License
+## 赞赏和捐赠
+**请注意，您的赞赏会成为作者继续开发的动力，但不代表和开发成果有直接关系，赞赏是自愿行为，不是本软件出售服务的任何方式！**
+![微信赞赏码](README_FILES/BUY_ME_A_COFFEE.jpg)
 
-This project is licensed under the [GNU General Public License v3.0](LICENSE).
+## 许可证
+
+本项目采用 [GNU General Public License v3.0](LICENSE) 许可证。
