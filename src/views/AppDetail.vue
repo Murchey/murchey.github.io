@@ -30,8 +30,32 @@ function githubLink(links: DownloadLink[], repo?: string): string | undefined {
   return links.find((l) => l.type === 'github')?.url || repo
 }
 
+const readmeRef = ref<HTMLElement | null>(null)
 const pageRef = ref<HTMLDivElement | null>(null)
 let ctx: gsap.Context
+
+/**
+ * README 里的页内锚点不能用原生跳转：
+ * 本站是 hash 路由（#/app/:id），点击 #xxx 会把路由 hash 顶掉导致页面跳走。
+ * 这里拦截点击，自己平滑滚动到对应标题。
+ */
+function onReadmeClick(event: MouseEvent) {
+  const target = event.target as HTMLElement | null
+  const anchor = target?.closest?.('a[href^="#"]') as HTMLAnchorElement | null
+  if (!anchor) return
+  const href = anchor.getAttribute('href') || ''
+  // 路由链接（#/xxx）交给 vue-router 处理
+  if (!href.startsWith('#') || href.startsWith('#/')) return
+  event.preventDefault()
+  let id = href.slice(1)
+  try {
+    id = decodeURIComponent(id)
+  } catch {
+    /* 保留原文 */
+  }
+  const el = document.getElementById(id)
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 
 onMounted(async () => {
   await nextTick()
@@ -176,7 +200,12 @@ onUnmounted(() => {
       <!-- README 正文 -->
       <section class="detail-block rounded-2xl border border-border/40 bg-background/40 p-6 md:p-8">
         <h2 class="mb-6 text-lg font-semibold text-foreground">项目文档</h2>
-        <div class="readme prose-readme" v-html="readmeHtml"></div>
+        <div
+          ref="readmeRef"
+          class="readme prose-readme"
+          v-html="readmeHtml"
+          @click="onReadmeClick"
+        ></div>
       </section>
     </template>
   </div>
