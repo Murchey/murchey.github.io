@@ -19,6 +19,7 @@ import {
   Monitor,
   Copy,
   Check,
+  ChevronRight,
 } from 'lucide-vue-next'
 import { apps, resolvePackageUrl, type DownloadLink, type AppPackage } from '@/data/apps'
 
@@ -134,9 +135,17 @@ onUnmounted(() => {
                 </div>
               </div>
 
-              <p class="mb-4 text-sm leading-relaxed text-muted-foreground">
+              <p class="mb-3 text-sm leading-relaxed text-muted-foreground">
                 {{ app.description }}
               </p>
+
+              <RouterLink
+                :to="`/app/${app.id}`"
+                class="mb-5 inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:opacity-80"
+              >
+                查看更多
+                <ChevronRight class="h-4 w-4" />
+              </RouterLink>
 
               <ul class="mb-4 space-y-2">
                 <li
